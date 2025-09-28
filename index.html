@@ -41,18 +41,18 @@
         const pixelCount = 64 * 64;
         const level = 0;
         const levels = [];
-        fetch('game.json')
-            .then(response => response.json())
-            .then(data => {
-                levels.push(...data);
-            });
 
         for (let i = 0; i < pixelCount; i++) {
             const pixel = document.createElement('div');
             pixel.classList.add('pixel');
             canvas.appendChild(pixel);
         }
-        nextLevel();
+        fetch('game.json')
+            .then(response => response.json())
+            .then(data => {
+                levels.push(...data);
+                nextLevel();
+            });
 
         function nextLevel() {
             for (let i = 0; i < 64; i++) {
@@ -119,3 +119,4 @@
 </body>
 
 </html>
+
