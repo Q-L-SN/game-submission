@@ -90,7 +90,7 @@
                         ];
                         pixels.forEach((p) => {
                             p.forEach((q) => {
-                                canvas.children[q].style.backgroundColor = () => {
+                                canvas.children[q].style.backgroundColor = (() => {
                                     switch (item.type) {
                                         case '1': return 'black';
                                         case '2': return 'brown';
@@ -99,7 +99,7 @@
                                         case '5': return 'green';
                                         case '6': return 'red';
                                     }
-                                }
+                                })();
                             });
                         });
                     }
@@ -117,4 +117,5 @@
         });
     </script>
 </body>
+
 </html>
