@@ -8,11 +8,14 @@
                 "y": 3,
                 "h": 5,
                 "w": 8,
-                "hard": "left-top",
-                "hard-h": 2,
-                "hard-w": 2
+                "hard": {
+                    "corner": "left-top",
+                    "h": 2,
+                    "w": 2
+                }
             }
         ]
     }
 
 ]
+
