@@ -93,22 +93,22 @@
                                 canvas.children[q].style.backgroundColor = (() => {
                                     switch (item.hard?.corner) {
                                         case 'left-top':
-                                            if (i < item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                            if (i < item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
                                                 return 'dimgray';
                                             }
                                             break;
                                         case 'left-bottom':
-                                            if (item.h - i <= item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                            if (item.h - i <= item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
                                                 return 'dimgray';
                                             }
                                             break;
                                         case 'right-top':
-                                            if (i < item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                            if (i < item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
                                                 return 'dimgray';
                                             }
                                             break;
                                         case 'right-bottom':
-                                            if (item.h - i <= item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                            if (item.h - i <= item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
                                                 return 'dimgray';
                                             }
                                             break;
@@ -145,6 +145,7 @@
 </body>
 
 </html>
+
 
 
 
