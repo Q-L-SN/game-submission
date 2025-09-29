@@ -61,7 +61,7 @@
             levels[level].blocks.forEach((item) => {
                 for (let i = 0; i < item.h; i++) {
                     for (let j = 0; j < item.w; j++) {
-                        let index = (item.y + i * 4) * 64 + (item.x - 1 + j * 4);
+                        let index = ((item.y + i) * 4) * 64 + ((item.x - 1 + j) * 4);
                         let pixels = [
                             [
                                 index,
@@ -119,5 +119,6 @@
 </body>
 
 </html>
+
 
 
