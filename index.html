@@ -88,9 +88,33 @@
                                 index + 195
                             ]
                         ];
-                        pixels.forEach((p) => {
-                            p.forEach((q) => {
+                        pixels.forEach((p, yindex) => {
+                            p.forEach((q, xindex) => {
                                 canvas.children[q].style.backgroundColor = (() => {
+                                    switch (item.hard?.corner) {
+                                        case 'left-top':
+                                            if (i < item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                                return 'dimgray';
+                                            }
+                                            break;
+                                        case 'left-bottom':
+                                            if (item.h - i <= item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                                return 'dimgray';
+                                            }
+                                            break;
+                                        case 'right-top':
+                                            if (i < item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                                return 'dimgray';
+                                            }
+                                            break;
+                                        case 'right-bottom':
+                                            if (item.h - i <= item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2 || yindex == 1 || yindex == 2)) {
+                                                return 'dimgray';
+                                            }
+                                            break;
+                                        case undefined:
+                                            break;
+                                    }
                                     switch (item.type) {
                                         case '1': return 'black';
                                         case '2': return 'brown';
@@ -109,7 +133,9 @@
 
         document.addEventListener('keydown', (e) => {
             switch (e.key) {
-                case 'ArrowUp': ; break;
+                case 'ArrowUp':
+                    ;
+                    break;
                 case 'ArrowDown': ; break;
                 case 'ArrowLeft': ; break;
                 case 'ArrowRight': ; break;
@@ -119,6 +145,7 @@
 </body>
 
 </html>
+
 
 
 
