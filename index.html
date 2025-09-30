@@ -41,6 +41,7 @@
         const pixelCount = 64 * 64;
         const level = 0;
         const levels = [];
+        var underControl = 1;
 
         for (let i = 0; i < pixelCount; i++) {
             const pixel = document.createElement('div');
@@ -122,6 +123,7 @@
                                         case '4': return 'blue';
                                         case '5': return 'green';
                                         case '6': return 'red';
+                                        case 'p': return (p + q + 1) % 2 ? 'papayawhip' : 'navajowhite';
                                     }
                                 })();
                             });
@@ -145,6 +147,7 @@
 </body>
 
 </html>
+
 
 
 
