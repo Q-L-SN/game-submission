@@ -141,8 +141,10 @@
                 case 'ArrowUp':
                     if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                         control.h--
-                        pixels(((control.y - 1 + control.hard.h - 1) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(item => {
-                            canvas.children[item].style.backgroundColor = 'grey';
+                        pixels(((control.y - 1 + control.hard.h - 1) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(p => {
+                            p.forEach(q => {
+                                canvas.children[q].style.backgroundColor = 'grey';
+                            });
                         });
                     } else if (true) {
                         //这部分逻辑还没写
@@ -157,6 +159,7 @@
 </body>
 
 </html>
+
 
 
 
