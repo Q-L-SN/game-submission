@@ -136,7 +136,8 @@
         document.addEventListener('keydown', (e) => {
             switch (e.key) {
                 case 'ArrowUp':
-                    ;
+                    levels.find(item => item.type == underControl).h--;
+                    canvas.children[levels.find(item => item.type == underControl)]
                     break;
                 case 'ArrowDown': ; break;
                 case 'ArrowLeft': ; break;
@@ -147,6 +148,7 @@
 </body>
 
 </html>
+
 
 
 
