@@ -139,12 +139,12 @@
             const control = levels[level].blocks.find(item => item.type == underControl)
             switch (e.key) {
                 case 'ArrowUp':
-                    if (control.hard.corner == 'left-top' || control.hard.corner == 'right-top') {
+                    if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                         control.h--
                         pixels(((control.y - 1 + control.hard.h - 1) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(item => {
                             canvas.children[item].style.backgroundColor = 'grey';
                         });
-                    } else {
+                    } else if (true) {
                         
                     }
                     break;
@@ -157,6 +157,7 @@
 </body>
 
 </html>
+
 
 
 
