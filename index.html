@@ -19,13 +19,13 @@
         #canvas {
             display: grid;
             gap: 0.5px;
-            grid-template-columns: repeat(64, calc(100vw / 64));
-            grid-template-rows: repeat(64, calc(100vw / 64));
+            grid-template-columns: repeat(64, min(calc(100vw / 64), 7.1);
+            grid-template-rows: repeat(64, min(calc(100vw / 64), 7.1);
             background-color: grey;
         }
         .pixel {
-            width: repeat(64, calc(100vw / 64);
-            height: repeat(64, calc(100vw / 64);
+            width: repeat(64, min(calc(100vw / 64), 7.1);
+            height: repeat(64, min(calc(100vw / 64), 7.1);
             background-color: darkgrey;
         }
 
@@ -156,6 +156,7 @@
 </body>
 
 </html>
+
 
 
 
