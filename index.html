@@ -20,13 +20,13 @@
             display: grid;
             --gap: 0.5px;
             gap: var(--gap);
-            grid-template-columns: repeat(64, min(calc((100vw - var(--gap) * 63) / 64), 7.1));
-            grid-template-rows: repeat(64, min(calc((100vw - var(--gap) * 63) / 64), 7.1));
+            grid-template-columns: repeat(64, min(calc((100vw - var(--gap) * 63) / 64), 7.1px));
+            grid-template-rows: repeat(64, min(calc((100vw - var(--gap) * 63) / 64), 7.1px));
             background-color: grey;
         }
         .pixel {
-            width: min(calc((100vw - var(--gap) * 63) / 64), 7.1);
-            height: min(calc((100vw - var(--gap) * 63) / 64), 7.1);
+            width: min(calc((100vw - var(--gap) * 63) / 64), 7.1px);
+            height: min(calc((100vw - var(--gap) * 63) / 64), 7.1px);
             background-color: darkgrey;
         }
 
@@ -157,6 +157,7 @@
 </body>
 
 </html>
+
 
 
 
