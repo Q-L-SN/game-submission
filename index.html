@@ -146,8 +146,8 @@
                                 });
                             });
                         }
-                    } else if (levels[level].blocks.some(item => !((control.y - 1 >= item.y && control.y - 1 < item.y + item.h) && (item.x < control.x + control.w && control.x < item.x + item.w)))
-                               && control.y != 1) {
+                    } else if (levels[level].blocks.some(item => !((control.y - 1 >= item.y && control.y - 1 <= item.y + item.h - 1)
+                       && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
                         control.y--;
                         control.h++;
                         for (let i = 0; i < control.w; i++) {
@@ -168,7 +168,39 @@
                         }
                     }
                     break;
-                case 'ArrowDown': ; break;
+                case 'ArrowDown': 
+                    if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'right-bottom') && control.h != control.hard.h) {
+                        control.h--;
+                        control.y++;
+                        for (let i = 0; i < control.w; i++) {
+                            pixels(((control.y * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                                p.forEach(q => {
+                                    canvas.children[q].style.backgroundColor = 'darkgrey';
+                                });
+                            });
+                        }
+                    } else if (levels[level].blocks.some(item => !((control.y + control.hard.h >= item.y && control.y + control.hard.h <= item.y + item.h - 1) 
+                               && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 15) {
+                        control.y--;
+                        control.h++;
+                        for (let i = 0; i < control.w; i++) {
+                            pixels(((control.y - 2) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                                p.forEach(q => {
+                                    canvas.children[q].style.backgroundColor = (() => {
+                                        switch (control.type) {
+                                            case '1': return 'deeppink';
+                                            case '2': return 'brown';
+                                            case '3': return 'yellow';
+                                            case '4': return 'blue';
+                                            case '5': return 'green';
+                                            case '6': return 'red';
+                                        }
+                                    });
+                                });
+                            });
+                        }
+                    }
+                    break;
                 case 'ArrowLeft': ; break;
                 case 'ArrowRight': ; break;
             }
@@ -177,6 +209,7 @@
 </body>
 
 </html>
+
 
 
 
