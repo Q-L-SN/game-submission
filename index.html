@@ -138,14 +138,17 @@
             switch (e.key) {
                 case 'ArrowUp':
                     if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
-                        control.h--
+                        control.h--;
                         pixels(((control.y - 1 + control.hard.h) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(p => {
                             p.forEach(q => {
                                 canvas.children[q].style.backgroundColor = 'darkgrey';
                             });
                         });
-                    } else if (!levels[level].blocks.some(item => (control.y - 1 >= item.y && control.y - 1 < item.y + item.h) && (item.x < control.x + control.w && control.x < item.x + item.w)) {
-                        //这部分逻辑还没写
+                    } else if (levels[level].blocks.some(item => !((control.y - 1 >= item.y && control.y - 1 < item.y + item.h) && (item.x < control.x + control.w && control.x < item.x + item.w)))
+                               && control.y != 1) {
+                        control.y--;
+                        control.h++;
+                        
                     }
                     break;
                 case 'ArrowDown': ; break;
@@ -157,6 +160,7 @@
 </body>
 
 </html>
+
 
 
 
