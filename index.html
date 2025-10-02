@@ -144,7 +144,7 @@
                                 canvas.children[q].style.backgroundColor = 'darkgrey';
                             });
                         });
-                    } else if (true) {
+                    } else if (!levels[level].blocks.some(item => (control.y - 1 >= item.y && control.y - 1 < item.y + item.h) && (item.x < control.x + control.w && control.x < item.x + item.w)) {
                         //这部分逻辑还没写
                     }
                     break;
@@ -157,6 +157,7 @@
 </body>
 
 </html>
+
 
 
 
