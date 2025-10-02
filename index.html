@@ -140,14 +140,14 @@
                     if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                         control.h--;
                         for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y - 1 + control.hard.h) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                         pixels(((control.y - 1 + control.hard.h) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = 'darkgrey';
                                 });
                             });
                         }
                     } else if (levels[level].blocks.some(item => !((control.y - 1 >= item.y && control.y - 1 <= item.y + item.h - 1)
-                       && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
+                        && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
                         control.y--;
                         control.h++;
                         for (let i = 0; i < control.w; i++) {
@@ -209,6 +209,7 @@
 </body>
 
 </html>
+
 
 
 
