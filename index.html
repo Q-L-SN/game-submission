@@ -181,7 +181,6 @@
                         }
                     } else if (levels[level].blocks.some(item => !((control.y + control.hard.h >= item.y && control.y + control.hard.h <= item.y + item.h - 1) 
                                && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 15) {
-                        control.h++;
                         for (let i = 0; i < control.w; i++) {
                             pixels(((control.y + control.h - 1) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                                 p.forEach(q => {
@@ -198,6 +197,7 @@
                                 });
                             });
                         }
+                        control.h++;
                     }
                     break;
                 case 'ArrowLeft': ; break;
@@ -208,6 +208,7 @@
 </body>
 
 </html>
+
 
 
 
