@@ -139,16 +139,33 @@
                 case 'ArrowUp':
                     if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                         control.h--;
-                        pixels(((control.y - 1 + control.hard.h) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(p => {
-                            p.forEach(q => {
-                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                        for (let i = 0; i < control.w; i++) {
+                            pixels(((control.y - 1 + control.hard.h) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                                p.forEach(q => {
+                                    canvas.children[q].style.backgroundColor = 'darkgrey';
+                                });
                             });
-                        });
+                        }
                     } else if (levels[level].blocks.some(item => !((control.y - 1 >= item.y && control.y - 1 < item.y + item.h) && (item.x < control.x + control.w && control.x < item.x + item.w)))
                                && control.y != 1) {
                         control.y--;
                         control.h++;
-                        
+                        for (let i = 0; i < control.w; i++) {
+                            pixels(((control.y - 2) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                                p.forEach(q => {
+                                    canvas.children[q].style.backgroundColor = (() => {
+                                        switch (control.type) {
+                                            case '1': return 'deeppink';
+                                            case '2': return 'brown';
+                                            case '3': return 'yellow';
+                                            case '4': return 'blue';
+                                            case '5': return 'green';
+                                            case '6': return 'red';
+                                        }
+                                    });
+                                });
+                            });
+                        }
                     }
                     break;
                 case 'ArrowDown': ; break;
@@ -160,6 +177,7 @@
 </body>
 
 </html>
+
 
 
 
