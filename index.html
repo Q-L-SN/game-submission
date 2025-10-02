@@ -173,7 +173,7 @@
                         control.h--;
                         control.y++;
                         for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                            pixels(control.y * 64 + (control.x - 1 + i) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = 'darkgrey';
                                 });
@@ -208,6 +208,7 @@
 </body>
 
 </html>
+
 
 
 
