@@ -210,7 +210,44 @@
                         control.h++;
                     }
                     break;
-                case 'ArrowLeft': ; break;
+                case 'ArrowLeft':
+                    if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
+                        control.w--;
+                        for (let i = 0; i < control.h; i++) {
+                            pixels(((control.y - 1 + i) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(p => {
+                                p.forEach(q => {
+                                    canvas.children[q].style.backgroundColor = 'darkgrey';
+                                });
+                            });
+                        }
+                    } else if (levels[level].blocks.every(item => !((control.x >= item.x && control.x <= item.x + item.w - 1)
+                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 16) {
+                        if (control.hard.corner == 'left-bottom') {
+                            control.hard.corner = 'right-bottom';
+                        } else if (control.hard.corner == 'left-top') {
+                            control.hard.corner = 'right-top';
+                        }
+                        control.x--;
+                        control.w++;
+                        for (let i = 0; i < control.h; i++) {
+                            pixels(((control.y + i - 1) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(p => {
+                                p.forEach(q => {
+                                    canvas.children[q].style.backgroundColor = (() => {
+                                        switch (control.type) {
+                                            case '1': return 'deeppink';
+                                            case '2': return 'brown';
+                                            case '3': return 'yellow';
+                                            case '4': return 'blue';
+                                            case '5': return 'green';
+                                            case '6': return 'red';
+                                        }
+                                    })();
+                                });
+                            });
+                        }
+                        control.h++;
+                    }
+                    break;
                 case 'ArrowRight': ; break;
             }
         });
@@ -218,6 +255,7 @@
 </body>
 
 </html>
+
 
 
 
