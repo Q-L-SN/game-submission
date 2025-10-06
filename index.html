@@ -220,8 +220,8 @@
                                 });
                             });
                         }
-                    } else if (levels[level].blocks.every(item => !((control.x >= item.x && control.x <= item.x + item.w - 1)
-                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 16) {
+                    } else if (levels[level].blocks.every(item => !((control.x >= item.x && control.x < item.x + item.w - 1)
+                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 1) {
                         if (control.hard.corner == 'left-bottom') {
                             control.hard.corner = 'right-bottom';
                         } else if (control.hard.corner == 'left-top') {
@@ -255,6 +255,7 @@
 </body>
 
 </html>
+
 
 
 
