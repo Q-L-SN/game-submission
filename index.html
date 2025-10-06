@@ -148,6 +148,11 @@
                         }
                     } else if (levels[level].blocks.some(item => !((control.y - 1 >= item.y && control.y - 1 <= item.y + item.h - 1)
                         && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
+                        if (control.hard.corner == 'left-top') {
+                            control.hard.corner == 'left-bottom';
+                        } else if (control.hard.corner == 'right-top') {
+                            control.hard.corner == 'right-bottom';
+                        }
                         control.y--;
                         control.h++;
                         for (let i = 0; i < control.w; i++) {
@@ -208,6 +213,7 @@
 </body>
 
 </html>
+
 
 
 
