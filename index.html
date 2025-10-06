@@ -149,9 +149,9 @@
                     } else if (levels[level].blocks.some(item => !((control.y - 1 >= item.y && control.y - 1 <= item.y + item.h - 1)
                         && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
                         if (control.hard.corner == 'left-top') {
-                            control.hard.corner == 'left-bottom';
+                            control.hard.corner = 'left-bottom';
                         } else if (control.hard.corner == 'right-top') {
-                            control.hard.corner == 'right-bottom';
+                            control.hard.corner = 'right-bottom';
                         }
                         control.y--;
                         control.h++;
@@ -187,9 +187,9 @@
                     } else if (levels[level].blocks.some(item => !((control.y + control.h >= item.y && control.y + control.h <= item.y + item.h - 1) 
                                && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y + (control.h - 1) != 15) {
                         if (control.hard.corner == 'left-bottom') {
-                            control.hard.corner == 'left-top';
+                            control.hard.corner = 'left-top';
                         } else if (control.hard.corner == 'right-bottom') {
-                            control.hard.corner == 'right-top';
+                            control.hard.corner = 'right-top';
                         }
                         for (let i = 0; i < control.w; i++) {
                             pixels(((control.y + control.h - 1) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
@@ -218,6 +218,7 @@
 </body>
 
 </html>
+
 
 
 
