@@ -221,7 +221,7 @@
                             });
                         }
                     } else if (levels[level].blocks.every(item => !((control.x - 1 >= item.x && control.x - 1 <= item.x + item.w - 1)
-                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 1) {
+                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x != 1) {
                         if (control.hard.corner == 'left-bottom') {
                             control.hard.corner = 'right-bottom';
                         } else if (control.hard.corner == 'left-top') {
@@ -254,6 +254,7 @@
 </body>
 
 </html>
+
 
 
 
