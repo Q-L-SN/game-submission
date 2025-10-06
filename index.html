@@ -258,12 +258,12 @@
                                 });
                             });
                         }
-                    } else if (levels[level].blocks.every(item => !((control.x - 1 >= item.x && control.x - 1 <= item.x + item.w - 1)
-                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x != 1) {
-                        if (control.hard.corner == 'left-bottom') {
-                            control.hard.corner = 'right-bottom';
-                        } else if (control.hard.corner == 'left-top') {
-                            control.hard.corner = 'right-top';
+                    } else if (levels[level].blocks.every(item => !((control.x + control.w >= item.x && control.x + control.w <= item.x + item.w - 1) 
+                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 16) {
+                        if (control.hard.corner == 'right-bottom') {
+                            control.hard.corner = 'left-bottom';
+                        } else if (control.hard.corner == 'right-top') {
+                            control.hard.corner = 'left-top';
                         }
                         control.x--;
                         control.w++;
@@ -291,6 +291,7 @@
 </body>
 
 </html>
+
 
 
 
