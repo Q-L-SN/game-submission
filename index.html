@@ -268,7 +268,7 @@
                         control.x--;
                         control.w++;
                         for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y + i - 1) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(p => {
+                            pixels(((control.y + i - 1) * 4 + 1) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
@@ -291,6 +291,7 @@
 </body>
 
 </html>
+
 
 
 
