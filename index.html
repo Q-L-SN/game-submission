@@ -118,7 +118,7 @@
                                     }
                                     switch (item.type) {
                                         case '1': return 'deeppink';
-                                        case '2': return 'brown';
+                                        case '2': return 'aqua';
                                         case '3': return 'yellow';
                                         case '4': return 'blue';
                                         case '5': return 'green';
@@ -140,8 +140,10 @@
                     if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                         control.h--;
                         for (let i = 0; i < control.w; i++) {
-                         pixels(((control.y - 1 + control.h) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
-                                p.forEach(q => {
+                         pixels(((control.y - 1 + control.h) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
+                                p.forEach((q, xindex) => {
+                                    if (levels[level].blocks.filter(item => item.type == 'p').some(item => item.x <= control.x <= item.x + item.w - 1)) {
+                                        canvas.children[q].style.backgroundColor = 
                                     canvas.children[q].style.backgroundColor = 'darkgrey';
                                 });
                             });
@@ -161,7 +163,7 @@
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
                                             case '1': return 'deeppink';
-                                            case '2': return 'brown';
+                                            case '2': return 'aqua';
                                             case '3': return 'yellow';
                                             case '4': return 'blue';
                                             case '5': return 'green';
@@ -197,7 +199,7 @@
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
                                             case '1': return 'deeppink';
-                                            case '2': return 'brown';
+                                            case '2': return 'aqua';
                                             case '3': return 'yellow';
                                             case '4': return 'blue';
                                             case '5': return 'green';
@@ -235,7 +237,7 @@
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
                                             case '1': return 'deeppink';
-                                            case '2': return 'brown';
+                                            case '2': return 'aqua';
                                             case '3': return 'yellow';
                                             case '4': return 'blue';
                                             case '5': return 'green';
@@ -272,7 +274,7 @@
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
                                             case '1': return 'deeppink';
-                                            case '2': return 'brown';
+                                            case '2': return 'aqua';
                                             case '3': return 'yellow';
                                             case '4': return 'blue';
                                             case '5': return 'green';
@@ -290,6 +292,7 @@
 </body>
 
 </html>
+
 
 
 
