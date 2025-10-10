@@ -85,10 +85,19 @@
             for (let i = 0; i < 64; i++) {
                 canvas.children[i].style.backgroundColor = 'orange';
             }
+            for (let i = 0; i < 64; i++) {
+                canvas.children[64 + i].style.backgroundColor = 'lightslategray';
+            }
+            for (let i = 0; i < 64 * 2; i++) {
+                canvas.children[64 * (64 - 2) + i].style.backgroundColor = 'lightslategray';
+            }
+            for (let i = 0; i < Math.round((64 - (levels.length - 1)) / levels.length); i++) {
+                canvas.children[64 * (64 - 1) + i].style.backgroundColor = 'forestgreen';
+            }
             levels[level].blocks.forEach((item) => {
                 for (let i = 0; i < item.h; i++) {
                     for (let j = 0; j < item.w; j++) {
-                        let index = ((item.y - 1 + i) * 4 + 1) * 64 + ((item.x - 1 + j) * 4);
+                        let index = ((item.y - 1 + i) * 4 + 2) * 64 + ((item.x - 1 + j) * 4);
                         pixels(index).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
                                 canvas.children[q].style.backgroundColor = (() => {
@@ -140,11 +149,13 @@
                     if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                         control.h--;
                         for (let i = 0; i < control.w; i++) {
-                         pixels(((control.y - 1 + control.h) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
+                         pixels(((control.y - 1 + control.h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
                                 p.forEach((q, xindex) => {
                                     if (levels[level].blocks.filter(item => item.type == 'p').some(item => item.x <= control.x <= item.x + item.w - 1)) {
-                                        canvas.children[q].style.backgroundColor = 
-                                    canvas.children[q].style.backgroundColor = 'darkgrey';
+                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                    } else {
+                                        canvas.children[q].style.backgroundColor = 'darkgrey';
+                                    }
                                 });
                             });
                         }
@@ -158,7 +169,7 @@
                         control.y--;
                         control.h++;
                         for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y - 1) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                            pixels(((control.y - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
@@ -180,7 +191,7 @@
                         control.h--;
                         control.y++;
                         for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y - 2) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                            pixels(((control.y - 2) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = 'darkgrey';
                                 });
@@ -194,7 +205,7 @@
                             control.hard.corner = 'right-top';
                         }
                         for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y + control.h - 1) * 4 + 1) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                            pixels(((control.y + control.h - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
@@ -216,7 +227,7 @@
                     if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
                         control.w--;
                         for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y - 1 + i) * 4 + 1) * 64 + (control.x + control.w - 1) * 4).forEach(p => {
+                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x + control.w - 1) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = 'darkgrey';
                                 });
@@ -232,7 +243,7 @@
                         control.x--;
                         control.w++;
                         for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y + i - 1) * 4 + 1) * 64 + (control.x - 1) * 4).forEach(p => {
+                            pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x - 1) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
@@ -254,7 +265,7 @@
                         control.x++;
                         control.w--;
                         for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y - 1 + i) * 4 + 1) * 64 + (control.x - 2) * 4).forEach(p => {
+                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 2) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = 'darkgrey';
                                 });
@@ -269,7 +280,7 @@
                         }
                         control.w++;
                         for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y + i - 1) * 4 + 1) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
+                            pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
                                 p.forEach(q => {
                                     canvas.children[q].style.backgroundColor = (() => {
                                         switch (control.type) {
@@ -292,6 +303,7 @@
 </body>
 
 </html>
+
 
 
 
