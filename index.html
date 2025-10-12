@@ -82,6 +82,7 @@
             });
 
         function nextLevel() {
+            levels[level].remainingSteps = levels[level].maxSteps;
             for (let i = 0; i < 64; i++) {
                 canvas.children[i].style.backgroundColor = 'orange';
             }
@@ -145,8 +146,11 @@
             })
         }
 
-        function updateSteps() {
-            
+        function updateRemainingSteps() {
+            levels[level].remainingSteps--;
+            for (let i = 0; i < 64 / levels[level].maxSteps; i++) {
+                canvas.children[Math.round(64 / levels[level].maxSteps * levels[level].remainingSteps) + i].style.backgroundColor = 'lightslategray';
+            }
         }
 
         document.addEventListener('keydown', (e) => {
@@ -311,6 +315,7 @@
 </body>
 
 </html>
+
 
 
 
