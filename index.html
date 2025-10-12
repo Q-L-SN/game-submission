@@ -158,6 +158,7 @@
             switch (e.key) {
                 case 'ArrowUp':
                     if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
+                        updateRemainingSteps();
                         control.h--;
                         for (let i = 0; i < control.w; i++) {
                          pixels(((control.y - 1 + control.h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
@@ -178,6 +179,7 @@
                         } else if (control.hard.corner == 'right-top') {
                             control.hard.corner = 'right-bottom';
                         }
+                        updateRemainingSteps();
                         control.y--;
                         control.h++;
                         for (let i = 0; i < control.w; i++) {
@@ -200,6 +202,7 @@
                     break;
                 case 'ArrowDown': 
                     if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'right-bottom') && control.h != control.hard.h) {
+                        updateRemainingSteps();
                         control.h--;
                         control.y++;
                         for (let i = 0; i < control.w; i++) {
@@ -232,11 +235,13 @@
                                 });
                             });
                         }
+                        updateRemainingSteps();
                         control.h++;
                     }
                     break;
                 case 'ArrowLeft':
                     if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
+                        updateRemainingSteps();
                         control.w--;
                         for (let i = 0; i < control.h; i++) {
                             pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x + control.w - 1) * 4).forEach(p => {
@@ -252,6 +257,7 @@
                         } else if (control.hard.corner == 'left-top') {
                             control.hard.corner = 'right-top';
                         }
+                        updateRemainingSteps();
                         control.x--;
                         control.w++;
                         for (let i = 0; i < control.h; i++) {
@@ -274,6 +280,7 @@
                     break;
                 case 'ArrowRight':
                     if ((control.hard.corner == 'right-bottom' || control.hard.corner == 'right-top') && control.w != control.hard.w) {
+                        updateRemainingSteps();
                         control.x++;
                         control.w--;
                         for (let i = 0; i < control.h; i++) {
@@ -290,6 +297,7 @@
                         } else if (control.hard.corner == 'right-top') {
                             control.hard.corner = 'left-top';
                         }
+                        updateRemainingSteps();
                         control.w++;
                         for (let i = 0; i < control.h; i++) {
                             pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
@@ -315,6 +323,7 @@
 </body>
 
 </html>
+
 
 
 
