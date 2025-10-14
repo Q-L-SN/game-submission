@@ -35,6 +35,7 @@
             flex-direction: row;
             background-color: black;
             border: 2px solid purple;
+            display: none;
         }
         #tryAgainButton {
             font-size: 20px;
@@ -122,7 +123,7 @@
                     canvas.children[64 * (64 - 1) + i + j].style.backgroundColor = 'forestgreen';
                 }
             }
-            levels[level].blocks.
+            levels[level].blocks = levels[level].blocks.sort((a, b) => (a.type == 'p') - (b.type == 'p')); //让p块到最前面去！
             levels[level].blocks.forEach((item) => {
                 for (let i = 0; i < item.h; i++) {
                     for (let j = 0; j < item.w; j++) {
@@ -231,9 +232,14 @@
                         control.h--;
                         control.y++;
                         for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y - 2) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
-                                p.forEach(q => {
-                                    canvas.children[q].style.backgroundColor = 'darkgrey';
+                            pixels(((control.y - 2) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
+                                p.forEach((q, xindex) => {
+                                    if (levels[level].blocks.filter(item => item.type == 'p')
+                                        .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y - 1 && control.y - 1 <= item.y + item.h - 1)) {
+                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                    } else {
+                                        canvas.children[q].style.backgroundColor = 'darkgrey';
+                                    }
                                 });
                             });
                         }
@@ -348,77 +354,4 @@
             
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
