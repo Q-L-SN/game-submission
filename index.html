@@ -103,10 +103,15 @@
             .then(response => response.json())
             .then(data => {
                 levels.push(...data);
-                nextLevel();
+                drawLevel(false);
             });
 
-        function nextLevel() {
+        function drawLevel(redrawBG = true) {
+            if (redrawBG) {
+                Array.from(levels[kevel].children).forEach(item => {
+                    item.style.backgroundColor = 'darkgrey';
+                };
+            }
             levels[level].remainingSteps = levels[level].maxSteps;
             for (let i = 0; i < 64; i++) {
                 canvas.children[i].style.backgroundColor = 'orange';
@@ -351,7 +356,9 @@
             }
         });
         document.getElementById('tryAgainButton').addEventListener('click', () => {
-            
+            drawLevel();
+        }
     </script>
 </body>
 </html>
+
