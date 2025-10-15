@@ -255,6 +255,7 @@
                         } else if (control.hard.corner == 'right-bottom') {
                             control.hard.corner = 'right-top';
                         }
+                        updateRemainingSteps();
                         for (let i = 0; i < control.w; i++) {
                             pixels(((control.y + control.h - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                                 p.forEach(q => {
@@ -271,7 +272,6 @@
                                 });
                             });
                         }
-                        updateRemainingSteps();
                         control.h++;
                     }
                     break;
@@ -371,6 +371,7 @@
     </script>
 </body>
 </html>
+
 
 
 
