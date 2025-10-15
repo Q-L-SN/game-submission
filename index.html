@@ -280,9 +280,14 @@
                         updateRemainingSteps();
                         control.w--;
                         for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x + control.w - 1) * 4).forEach(p => {
-                                p.forEach(q => {
-                                    canvas.children[q].style.backgroundColor = 'darkgrey';
+                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x + control.w - 1) * 4).forEach((p, yindex) => {
+                                p.forEach((q, xindex) => {
+                                    if (levels[level].blocks.filter(item => item.type == 'p')
+                                        .some(item => item.x <= control.x + control.w && control.x + control.w <= item.x + item.w - 1 && item.y <= control.y + i  && control.y + i <= item.y + item.h - 1)) {
+                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                    } else {
+                                        canvas.children[q].style.backgroundColor = 'darkgrey';
+                                    }
                                 });
                             });
                         }
@@ -320,9 +325,14 @@
                         control.x++;
                         control.w--;
                         for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 2) * 4).forEach(p => {
-                                p.forEach(q => {
-                                    canvas.children[q].style.backgroundColor = 'darkgrey';
+                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 2) * 4).forEach((p, yindex) => {
+                                p.forEach((q, xindex) => {
+                                    if (levels[level].blocks.filter(item => item.type == 'p')
+                                        .some(item => item.x <= control.x - 1 && control.x - 1 <= item.x + item.w - 1 && item.y <= control.y + i && control.y + i <= item.y + item.h - 1)) {
+                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                    } else {
+                                        canvas.children[q].style.backgroundColor = 'darkgrey';
+                                    }
                                 });
                             });
                         }
@@ -361,6 +371,7 @@
     </script>
 </body>
 </html>
+
 
 
 
