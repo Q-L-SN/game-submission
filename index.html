@@ -184,184 +184,207 @@
             }
         }
 
+        function getControl() {
+            return levels[level].blocks.find(item => item.type == underControl);
+        }
+
+        function up() {
+            const control = getControl();
+            if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
+                updateRemainingSteps();
+                control.h--;
+                for (let i = 0; i < control.w; i++) {
+                 pixels(((control.y - 1 + control.h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
+                        p.forEach((q, xindex) => {
+                            if (levels[level].blocks.filter(item => item.type == 'p')
+                                .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y + control.h && control.y + control.h <= item.y + item.h - 1)) {
+                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                            } else {
+                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                            }
+                        });
+                    });
+                }
+            } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.y - 1 >= item.y && control.y - 1 <= item.y + item.h - 1)
+                && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
+                if (control.hard.corner == 'left-top') {
+                    control.hard.corner = 'left-bottom';
+                } else if (control.hard.corner == 'right-top') {
+                    control.hard.corner = 'right-bottom';
+                }
+                updateRemainingSteps();
+                control.y--;
+                control.h++;
+                for (let i = 0; i < control.w; i++) {
+                    pixels(((control.y - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                        p.forEach(q => {
+                            canvas.children[q].style.backgroundColor = (() => {
+                                switch (control.type) {
+                                    case '1': return 'deeppink';
+                                    case '2': return 'aqua';
+                                    case '3': return 'yellow';
+                                    case '4': return 'blue';
+                                    case '5': return 'green';
+                                    case '6': return 'red';
+                                }
+                            })();
+                        });
+                    });
+                }
+            }
+        }
+
+        function down() {
+            const control = getControl();
+            if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'right-bottom') && control.h != control.hard.h) {
+                updateRemainingSteps();
+                control.h--;
+                control.y++;
+                for (let i = 0; i < control.w; i++) {
+                    pixels(((control.y - 2) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
+                        p.forEach((q, xindex) => {
+                            if (levels[level].blocks.filter(item => item.type == 'p')
+                                .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y - 1 && control.y - 1 <= item.y + item.h - 1)) {
+                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                            } else {
+                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                            }
+                        });
+                    });
+                }
+            } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.y + control.h >= item.y && control.y + control.h <= item.y + item.h - 1) 
+                       && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y + (control.h - 1) != 15) {
+                if (control.hard.corner == 'left-bottom') {
+                    control.hard.corner = 'left-top';
+                } else if (control.hard.corner == 'right-bottom') {
+                    control.hard.corner = 'right-top';
+                }
+                updateRemainingSteps();
+                for (let i = 0; i < control.w; i++) {
+                    pixels(((control.y + control.h - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
+                        p.forEach(q => {
+                            canvas.children[q].style.backgroundColor = (() => {
+                                switch (control.type) {
+                                    case '1': return 'deeppink';
+                                    case '2': return 'aqua';
+                                    case '3': return 'yellow';
+                                    case '4': return 'blue';
+                                    case '5': return 'green';
+                                    case '6': return 'red';
+                                }
+                            })();
+                        });
+                    });
+                }
+                control.h++;
+            }
+        }
+
+        function left() {
+            const control = getControl();
+            if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
+                updateRemainingSteps();
+                control.w--;
+                for (let i = 0; i < control.h; i++) {
+                    pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x + control.w - 1) * 4).forEach((p, yindex) => {
+                        p.forEach((q, xindex) => {
+                            if (levels[level].blocks.filter(item => item.type == 'p')
+                                .some(item => item.x <= control.x + control.w && control.x + control.w <= item.x + item.w - 1 && item.y <= control.y + i  && control.y + i <= item.y + item.h - 1)) {
+                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                            } else {
+                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                            }
+                        });
+                    });
+                }
+            } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.x - 1 >= item.x && control.x - 1 <= item.x + item.w - 1)
+                       && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x != 1) {
+                if (control.hard.corner == 'left-bottom') {
+                    control.hard.corner = 'right-bottom';
+                } else if (control.hard.corner == 'left-top') {
+                    control.hard.corner = 'right-top';
+                }
+                updateRemainingSteps();
+                control.x--;
+                control.w++;
+                for (let i = 0; i < control.h; i++) {
+                    pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x - 1) * 4).forEach(p => {
+                        p.forEach(q => {
+                            canvas.children[q].style.backgroundColor = (() => {
+                                switch (control.type) {
+                                    case '1': return 'deeppink';
+                                    case '2': return 'aqua';
+                                    case '3': return 'yellow';
+                                    case '4': return 'blue';
+                                    case '5': return 'green';
+                                    case '6': return 'red';
+                                }
+                            })();
+                        });
+                    });
+                }
+            }
+        }
+
+        function right() {
+            const control = getControl();
+            if ((control.hard.corner == 'right-bottom' || control.hard.corner == 'right-top') && control.w != control.hard.w) {
+                updateRemainingSteps();
+                control.x++;
+                control.w--;
+                for (let i = 0; i < control.h; i++) {
+                    pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 2) * 4).forEach((p, yindex) => {
+                        p.forEach((q, xindex) => {
+                            if (levels[level].blocks.filter(item => item.type == 'p')
+                                .some(item => item.x <= control.x - 1 && control.x - 1 <= item.x + item.w - 1 && item.y <= control.y + i && control.y + i <= item.y + item.h - 1)) {
+                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                            } else {
+                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                            }
+                        });
+                    });
+                }
+            } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.x + control.w >= item.x && control.x + control.w <= item.x + item.w - 1) 
+                       && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 16) {
+                if (control.hard.corner == 'right-bottom') {
+                    control.hard.corner = 'left-bottom';
+                } else if (control.hard.corner == 'right-top') {
+                    control.hard.corner = 'left-top';
+                }
+                updateRemainingSteps();
+                control.w++;
+                for (let i = 0; i < control.h; i++) {
+                    pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
+                        p.forEach(q => {
+                            canvas.children[q].style.backgroundColor = (() => {
+                                switch (control.type) {
+                                    case '1': return 'deeppink';
+                                    case '2': return 'aqua';
+                                    case '3': return 'yellow';
+                                    case '4': return 'blue';
+                                    case '5': return 'green';
+                                    case '6': return 'red';
+                                }
+                            })();
+                        });
+                    });
+                }
+            }
+        }
+
         document.addEventListener('keydown', (e) => {
-            const control = levels[level].blocks.find(item => item.type == underControl)
             switch (e.key) {
                 case 'ArrowUp':
-                    if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
-                        updateRemainingSteps();
-                        control.h--;
-                        for (let i = 0; i < control.w; i++) {
-                         pixels(((control.y - 1 + control.h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
-                                p.forEach((q, xindex) => {
-                                    if (levels[level].blocks.filter(item => item.type == 'p')
-                                        .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y + control.h && control.y + control.h <= item.y + item.h - 1)) {
-                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
-                                    } else {
-                                        canvas.children[q].style.backgroundColor = 'darkgrey';
-                                    }
-                                });
-                            });
-                        }
-                    } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.y - 1 >= item.y && control.y - 1 <= item.y + item.h - 1)
-                        && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
-                        if (control.hard.corner == 'left-top') {
-                            control.hard.corner = 'left-bottom';
-                        } else if (control.hard.corner == 'right-top') {
-                            control.hard.corner = 'right-bottom';
-                        }
-                        updateRemainingSteps();
-                        control.y--;
-                        control.h++;
-                        for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
-                                p.forEach(q => {
-                                    canvas.children[q].style.backgroundColor = (() => {
-                                        switch (control.type) {
-                                            case '1': return 'deeppink';
-                                            case '2': return 'aqua';
-                                            case '3': return 'yellow';
-                                            case '4': return 'blue';
-                                            case '5': return 'green';
-                                            case '6': return 'red';
-                                        }
-                                    })();
-                                });
-                            });
-                        }
-                    }
+                    up();
                     break;
                 case 'ArrowDown': 
-                    if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'right-bottom') && control.h != control.hard.h) {
-                        updateRemainingSteps();
-                        control.h--;
-                        control.y++;
-                        for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y - 2) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
-                                p.forEach((q, xindex) => {
-                                    if (levels[level].blocks.filter(item => item.type == 'p')
-                                        .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y - 1 && control.y - 1 <= item.y + item.h - 1)) {
-                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
-                                    } else {
-                                        canvas.children[q].style.backgroundColor = 'darkgrey';
-                                    }
-                                });
-                            });
-                        }
-                    } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.y + control.h >= item.y && control.y + control.h <= item.y + item.h - 1) 
-                               && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y + (control.h - 1) != 15) {
-                        if (control.hard.corner == 'left-bottom') {
-                            control.hard.corner = 'left-top';
-                        } else if (control.hard.corner == 'right-bottom') {
-                            control.hard.corner = 'right-top';
-                        }
-                        updateRemainingSteps();
-                        for (let i = 0; i < control.w; i++) {
-                            pixels(((control.y + control.h - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
-                                p.forEach(q => {
-                                    canvas.children[q].style.backgroundColor = (() => {
-                                        switch (control.type) {
-                                            case '1': return 'deeppink';
-                                            case '2': return 'aqua';
-                                            case '3': return 'yellow';
-                                            case '4': return 'blue';
-                                            case '5': return 'green';
-                                            case '6': return 'red';
-                                        }
-                                    })();
-                                });
-                            });
-                        }
-                        control.h++;
-                    }
+                    down();
                     break;
                 case 'ArrowLeft':
-                    if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
-                        updateRemainingSteps();
-                        control.w--;
-                        for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x + control.w - 1) * 4).forEach((p, yindex) => {
-                                p.forEach((q, xindex) => {
-                                    if (levels[level].blocks.filter(item => item.type == 'p')
-                                        .some(item => item.x <= control.x + control.w && control.x + control.w <= item.x + item.w - 1 && item.y <= control.y + i  && control.y + i <= item.y + item.h - 1)) {
-                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
-                                    } else {
-                                        canvas.children[q].style.backgroundColor = 'darkgrey';
-                                    }
-                                });
-                            });
-                        }
-                    } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.x - 1 >= item.x && control.x - 1 <= item.x + item.w - 1)
-                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x != 1) {
-                        if (control.hard.corner == 'left-bottom') {
-                            control.hard.corner = 'right-bottom';
-                        } else if (control.hard.corner == 'left-top') {
-                            control.hard.corner = 'right-top';
-                        }
-                        updateRemainingSteps();
-                        control.x--;
-                        control.w++;
-                        for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x - 1) * 4).forEach(p => {
-                                p.forEach(q => {
-                                    canvas.children[q].style.backgroundColor = (() => {
-                                        switch (control.type) {
-                                            case '1': return 'deeppink';
-                                            case '2': return 'aqua';
-                                            case '3': return 'yellow';
-                                            case '4': return 'blue';
-                                            case '5': return 'green';
-                                            case '6': return 'red';
-                                        }
-                                    })();
-                                });
-                            });
-                        }
-                    }
+                    left();
                     break;
                 case 'ArrowRight':
-                    if ((control.hard.corner == 'right-bottom' || control.hard.corner == 'right-top') && control.w != control.hard.w) {
-                        updateRemainingSteps();
-                        control.x++;
-                        control.w--;
-                        for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 2) * 4).forEach((p, yindex) => {
-                                p.forEach((q, xindex) => {
-                                    if (levels[level].blocks.filter(item => item.type == 'p')
-                                        .some(item => item.x <= control.x - 1 && control.x - 1 <= item.x + item.w - 1 && item.y <= control.y + i && control.y + i <= item.y + item.h - 1)) {
-                                        canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
-                                    } else {
-                                        canvas.children[q].style.backgroundColor = 'darkgrey';
-                                    }
-                                });
-                            });
-                        }
-                    } else if (levels[level].blocks.every(item => item.type == 'p' || !((control.x + control.w >= item.x && control.x + control.w <= item.x + item.w - 1) 
-                               && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 16) {
-                        if (control.hard.corner == 'right-bottom') {
-                            control.hard.corner = 'left-bottom';
-                        } else if (control.hard.corner == 'right-top') {
-                            control.hard.corner = 'left-top';
-                        }
-                        updateRemainingSteps();
-                        control.w++;
-                        for (let i = 0; i < control.h; i++) {
-                            pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
-                                p.forEach(q => {
-                                    canvas.children[q].style.backgroundColor = (() => {
-                                        switch (control.type) {
-                                            case '1': return 'deeppink';
-                                            case '2': return 'aqua';
-                                            case '3': return 'yellow';
-                                            case '4': return 'blue';
-                                            case '5': return 'green';
-                                            case '6': return 'red';
-                                        }
-                                    })();
-                                });
-                            });
-                        }
-                    }
+                    right();
                     break;
             }
         });
@@ -371,6 +394,7 @@
     </script>
 </body>
 </html>
+
 
 
 
