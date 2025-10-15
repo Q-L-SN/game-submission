@@ -108,7 +108,7 @@
 
         function drawLevel(redrawBG = true) {
             if (redrawBG) {
-                Array.from(levels[kevel].children).forEach(item => {
+                Array.from(canvas.children).forEach(item => {
                     item.style.backgroundColor = 'darkgrey';
                 });
             }
@@ -394,6 +394,7 @@
     </script>
 </body>
 </html>
+
 
 
 
