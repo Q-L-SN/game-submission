@@ -128,7 +128,7 @@
                     canvas.children[64 * (64 - 1) + i + j].style.backgroundColor = 'forestgreen';
                 }
             }
-            levels[level].blocks = levels[level].blocks.sort((a, b) => (a.type == 'p') - (b.type == 'p')); //让p块到最前面去！
+            levels[level].blocks = levels[level].blocks.sort((a, b) => (b.type == 'p') - (a.type == 'p')); //让p块到最前面去！
             levels[level].blocks.forEach((item) => {
                 for (let i = 0; i < item.h; i++) {
                     for (let j = 0; j < item.w; j++) {
@@ -361,6 +361,7 @@
     </script>
 </body>
 </html>
+
 
 
 
