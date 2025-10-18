@@ -52,6 +52,7 @@
     </style>
 </head>
 <body>
+    <span id="level"></span>
     <div id="wrapper">
         <div id="gameover" class="filled">
             GAME OVER
@@ -112,6 +113,7 @@
                     item.style.backgroundColor = 'darkgrey';
                 });
             }
+            document.getElementById('level').innerText = `LEVEL ${level + 1}/${levels.length}`;
             levels[level].remainingSteps = levels[level].maxSteps;
             for (let i = 0; i < 64; i++) {
                 canvas.children[i].style.backgroundColor = 'orange';
@@ -394,6 +396,7 @@
     </script>
 </body>
 </html>
+
 
 
 
