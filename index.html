@@ -141,9 +141,9 @@
                 canvas.children[64 * (64 - 2) + i].style.backgroundColor = 'lightslategray';
             }
             for (let i = 0; i <= level; i++) {
-                const width = Math.round((64 - (levels.length - 1)) / levels.length);
+                const width = Math.round((64 - levels.length) / levels.length + 1);
                 for (let j = 0; i < width; i++) {
-                    canvas.children[64 * (64 - 1) + i + j].style.backgroundColor = 'forestgreen';
+                    canvas.children[64 * (64 - 1) + i * width + i + j].style.backgroundColor = 'forestgreen';
                 }
             }
             levels[level].blocks = levels[level].blocks.sort((a, b) => (b.type == 'p') - (a.type == 'p')); //让p块到最前面去！
@@ -419,6 +419,7 @@
     </script>
 </body>
 </html>
+
 
 
 
