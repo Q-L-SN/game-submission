@@ -121,10 +121,10 @@
             .then(response => response.json())
             .then(data => {
                 levels.push(...data);
-                levels.forEach(item => {
+                levels.forEach((item, i) => {
                     item.remainingSteps = item.maxSteps; //启动关卡时配置步数
                     item.blocks.sort((a, b) => (b.type == 'p') - (a.type == 'p')); //让p块到最前面去
-                    item = [item]; //变成数组成员再赋值给自己，从而变成嵌套数组，用于记录帧
+                    levels[i] = [item]; //变成数组成员再赋值给自己，从而变成嵌套数组，用于记录帧
                 });
                 drawFrame(false);
             });
@@ -427,4 +427,5 @@
     </script>
 </body>
 </html>
+
 
