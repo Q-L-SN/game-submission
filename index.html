@@ -200,7 +200,7 @@
         }
 
         function updateRemainingSteps() {
-            levels[level].unshift(levels[level][0]);
+            levels[level].unshift(JSON.parse(JSON.stringify(levels[level][0])));
             levels[level][0].remainingSteps--;
             for (let i = 0; i < 64 / levels[level][0].maxSteps; i++) {
                 canvas.children[Math.round(64 / levels[level][0].maxSteps * levels[level][0].remainingSteps) + i].style.backgroundColor = 'lightslategray';
@@ -427,5 +427,6 @@
     </script>
 </body>
 </html>
+
 
 
