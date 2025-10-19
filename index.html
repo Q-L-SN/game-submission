@@ -200,6 +200,7 @@
         }
 
         function updateRemainingSteps() {
+            levels[level].unshift(levels[level][0]);
             levels[level][0].remainingSteps--;
             for (let i = 0; i < 64 / levels[level][0].maxSteps; i++) {
                 canvas.children[Math.round(64 / levels[level][0].maxSteps * levels[level][0].remainingSteps) + i].style.backgroundColor = 'lightslategray';
@@ -418,6 +419,7 @@
             }
         });
         document.getElementById('tryAgainButton').addEventListener('click', () => {
+            levels[level] = [levels[level].at(-1)];
             drawFrame();
             document.getElementById('gameover').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
@@ -425,3 +427,4 @@
     </script>
 </body>
 </html>
+
