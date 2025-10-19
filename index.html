@@ -45,6 +45,7 @@
         }
         #gameover {
             font-size: 30px;
+            gap: 20px;
         }
         #tryAgainButton {
             font-size: 20px;
@@ -415,10 +416,13 @@
         });
         document.getElementById('tryAgainButton').addEventListener('click', () => {
             drawLevel();
+            document.getElementById('gameover').style.display = 'none';
+            document.getElementById('buttons').style.visibility = 'visible';
         });
     </script>
 </body>
 </html>
+
 
 
 
