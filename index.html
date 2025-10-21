@@ -207,17 +207,16 @@
             }
         }
 
-        function getControl() {
+        function control() {
             return levels[level][0].blocks.find(item => item.type == underControl);
         }
 
         function up() {
-            const control = getControl();
-            if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
+            if ((control().hard.corner == 'left-top' || control().hard.corner == 'right-top') && control().h != control().hard.h) {
                 updateRemainingSteps();
-                control.h--;
-                for (let i = 0; i < control.w; i++) {
-                 pixels(((control.y - 1 + control.h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
+                control().h--;
+                for (let i = 0; i < control().w; i++) {
+                 pixels(((control().y - 1 + control().h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
                         p.forEach((q, xindex) => {
                             if (levels[level][0].blocks.filter(item => item.type == 'p')
                                 .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y + control.h && control.y + control.h <= item.y + item.h - 1)) {
@@ -427,6 +426,7 @@
     </script>
 </body>
 </html>
+
 
 
 
