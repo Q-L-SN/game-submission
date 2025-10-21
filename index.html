@@ -82,7 +82,6 @@
         const pixelCount = 64 * 64;
         const level = 0;
         const levels = [];
-        var underControl = 1;
         function pixels(index) {
             return [
                 [
@@ -207,16 +206,18 @@
             }
         }
 
-        function control() {
+        function getControl() {
             return levels[level][0].blocks.find(item => item.type == underControl);
         }
 
         function up() {
-            if ((control().hard.corner == 'left-top' || control().hard.corner == 'right-top') && control().h != control().hard.h) {
+            const control = getControl();
+            if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                 updateRemainingSteps();
-                control().h--;
-                for (let i = 0; i < control().w; i++) {
-                 pixels(((control().y - 1 + control().h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
+                control = getControl(); //更新
+                control.h--;
+                for (let i = 0; i < control.w; i++) {
+                 pixels(((control.y - 1 + control.h) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach((p, yindex) => {
                         p.forEach((q, xindex) => {
                             if (levels[level][0].blocks.filter(item => item.type == 'p')
                                 .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y + control.h && control.y + control.h <= item.y + item.h - 1)) {
@@ -235,6 +236,7 @@
                     control.hard.corner = 'right-bottom';
                 }
                 updateRemainingSteps();
+                control = getControl(); //更新
                 control.y--;
                 control.h++;
                 for (let i = 0; i < control.w; i++) {
@@ -260,6 +262,7 @@
             const control = getControl();
             if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'right-bottom') && control.h != control.hard.h) {
                 updateRemainingSteps();
+                control = getControl(); //更新
                 control.h--;
                 control.y++;
                 for (let i = 0; i < control.w; i++) {
@@ -282,6 +285,7 @@
                     control.hard.corner = 'right-top';
                 }
                 updateRemainingSteps();
+                control = getControl(); //更新
                 for (let i = 0; i < control.w; i++) {
                     pixels(((control.y + control.h - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                         p.forEach(q => {
@@ -306,6 +310,7 @@
             const control = getControl();
             if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
                 updateRemainingSteps();
+                control = getControl(); //更新
                 control.w--;
                 for (let i = 0; i < control.h; i++) {
                     pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x + control.w - 1) * 4).forEach((p, yindex) => {
@@ -327,6 +332,7 @@
                     control.hard.corner = 'right-top';
                 }
                 updateRemainingSteps();
+                control = getControl(); //更新
                 control.x--;
                 control.w++;
                 for (let i = 0; i < control.h; i++) {
@@ -352,6 +358,7 @@
             const control = getControl();
             if ((control.hard.corner == 'right-bottom' || control.hard.corner == 'right-top') && control.w != control.hard.w) {
                 updateRemainingSteps();
+                control = getControl(); //更新
                 control.x++;
                 control.w--;
                 for (let i = 0; i < control.h; i++) {
@@ -374,6 +381,7 @@
                     control.hard.corner = 'left-top';
                 }
                 updateRemainingSteps();
+                control = getControl(); //更新
                 control.w++;
                 for (let i = 0; i < control.h; i++) {
                     pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
@@ -426,6 +434,7 @@
     </script>
 </body>
 </html>
+
 
 
 
