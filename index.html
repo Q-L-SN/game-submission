@@ -4,6 +4,11 @@
     <title>GAME</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        :root {
+            --buttons-font-size: 15px;
+            --buttons-line-height: calc(var(--font-size) * 1.2);
+            --buttons-padding: 8px;
+        }
         body {
             margin: 0;
             overflow: hidden;
@@ -67,14 +72,14 @@
         }
         #buttons div:not(#move), #move div {
             background-color: #262626;
-            --font-size: 15px;
-            --line-height: calc(var(--font-size) * 1.2);
-            --padding: 8px;
-            font-size: var(--font-size);
-            line-height: var(--line-height);
-            padding: var(--padding);
-            border-radius: calc((var(--line-height) + var(--padding) * 2) / 2);
+            font-size: var(--buttons-font-size);
+            line-height: var(--buttons-line-height);
+            padding: var(--buttons-padding);
+            border-radius: calc((var(--buttons-line-height) + var(--buttons-padding) * 2) / 2);
             color: white;
+        }
+        #move div {
+            width: calc(var(--buttons-line-height) + var(--buttons-padding) * 2);
         }
         .hover, #buttons div:not(#move):hover, #move div:hover {
             background-color: #444444;
@@ -467,6 +472,7 @@
     </script>
 </body>
 </html>
+
 
 
 
