@@ -15,6 +15,7 @@
             height: 100vh;
             width: 100vw;
             gap: 15px;
+            user-select: none;
         }
         #level {
             color: white;
@@ -52,7 +53,6 @@
             padding: 8px;
             border: 2px solid purple;
             color: white;
-            user-select: none;
         }
         .pixel {
             width: min(calc((100vw - var(--gap) * 63) / 64), 7.1px);
@@ -69,12 +69,15 @@
             background-color: #262626;
             --font-size: 15px;
             --line-height: calc(var(--font-size) * 1.2);
-            --padding: 5px;
+            --padding: 8px;
             font-size: var(--font-size);
             line-height: var(--line-height);
             padding: var(--padding);
             border-radius: calc((var(--line-height) + var(--padding) * 2) / 2);
             color: white;
+        }
+        .hover, #buttons div:not(#move):hover, #move div:hover {
+            background-color: #444444;
         }
     </style>
 </head>
@@ -464,6 +467,7 @@
     </script>
 </body>
 </html>
+
 
 
 
