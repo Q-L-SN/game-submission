@@ -505,8 +505,10 @@
             check();
         });
         document.getElementById('undo').addEventListener('click', () => {
-            levels[level].shift();
-            drawFrame();
+            if (levels[level].length != 1) {
+                levels[level].shift();
+                drawFrame();
+            }
         });
         document.getElementById('tryAgain').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
@@ -521,6 +523,7 @@
     </script>
 </body>
 </html>
+
 
 
 
