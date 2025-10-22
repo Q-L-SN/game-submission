@@ -165,11 +165,11 @@
                 });
             }
             document.getElementById('level').innerText = `LEVEL ${level + 1}/${levels.length}`;
+            for (let i = 0; i < 64 * 2; i++) {
+                canvas.children[i].style.backgroundColor = 'lightslategray';
+            }
             for (let i = 0; i < Math.round(64 / levels[level][0].maxSteps * levels[level][0].remainingSteps); i++) {
                 canvas.children[i].style.backgroundColor = 'orange';
-            }
-            for (let i = 0; i < 64; i++) {
-                canvas.children[64 + i].style.backgroundColor = 'lightslategray';
             }
             for (let i = 0; i < 64 * 2; i++) {
                 canvas.children[64 * (64 - 2) + i].style.backgroundColor = 'lightslategray';
@@ -523,6 +523,7 @@
     </script>
 </body>
 </html>
+
 
 
 
