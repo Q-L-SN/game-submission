@@ -242,8 +242,12 @@
 
         function check() {
             if (!Array.from(canvas.children).some((item, index) => (index - 64 * 2) % 4 == 0 && Math.floor((index - 64 * 2) / 64) % 4 == 0 && item.style.backgroundColor == 'papayawhip')) {
-                level++;
-                drawFrame();
+                if (level != levels.length - 1) {
+                    level++;
+                    drawFrame();
+                } else {
+
+                }
                 return;
             }
             if (levels[level][0].remainingSteps == 0) {
@@ -517,6 +521,7 @@
     </script>
 </body>
 </html>
+
 
 
 
