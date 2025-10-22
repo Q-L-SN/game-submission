@@ -75,7 +75,16 @@
             <div id="tryAgainButton">TRY AGAIN</div>
         </div>
         <div id="canvas"></div>
-        <div id="buttons"></div>
+        <div id="buttons">
+            <div id="move">
+                <div id="up"></div>
+                <div id="down"></div>
+                <div id="left"></div>
+                <div id="right"></div>
+            </div>
+            <div id="undo"></div>
+            <div id="tryAgain"></div>
+        </div>
     </div>
     <script>
         const canvas = document.getElementById('canvas');
@@ -209,6 +218,10 @@
 
         function getControl() {
             return levels[level][0].blocks.find(item => item.type == levels[level][0].underControl);
+        }
+
+        function check() {
+            return !Array.from(canvas.children).some((item, index) => (index - 64 * 2) % 4 == 0 && Math.floor((index - 64 * 2) / 64) % 4 == 0 && item.style.backgroundColor == 'papayawhip');
         }
 
         function up() {
@@ -421,6 +434,11 @@
                     right();
                     break;
             }
+            if (check()) {
+                level++;
+                drawFrame();
+                return;
+            }
             if (levels[level][0].remainingSteps == 0) {
                 document.getElementById('gameover').style.display = 'flex';
                 document.getElementById('buttons').style.visibility = 'hidden';
@@ -435,6 +453,7 @@
     </script>
 </body>
 </html>
+
 
 
 
