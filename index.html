@@ -483,7 +483,7 @@
                     document.getElementById('right').classList.remove('hover');
                     break;
             }
-        }
+        });
         document.getElementById('tryAgainButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
             drawFrame();
@@ -493,6 +493,7 @@
     </script>
 </body>
 </html>
+
 
 
 
