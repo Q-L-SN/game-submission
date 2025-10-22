@@ -443,15 +443,19 @@
             switch (e.key) {
                 case 'ArrowUp':
                     up();
+                    document.getElementById('up').classList.add('hover');
                     break;
                 case 'ArrowDown': 
                     down();
+                    document.getElementById('down').classList.add('hover');
                     break;
                 case 'ArrowLeft':
                     left();
+                    document.getElementById('left').classList.add('hover');
                     break;
                 case 'ArrowRight':
                     right();
+                    document.getElementById('right').classList.add('hover');
                     break;
             }
             if (check()) {
@@ -464,6 +468,22 @@
                 document.getElementById('buttons').style.visibility = 'hidden';
             }
         });
+        document.addEventListener('keyup', (e) => {
+            switch (e.key) {
+                case 'ArrowUp':
+                    document.getElementById('up').classList.remove('hover');
+                    break;
+                case 'ArrowDown': 
+                    document.getElementById('down').classList.remove('hover');
+                    break;
+                case 'ArrowLeft':
+                    document.getElementById('left').classList.remove('hover');
+                    break;
+                case 'ArrowRight':
+                    document.getElementById('right').classList.remove('hover');
+                    break;
+            }
+        }
         document.getElementById('tryAgainButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
             drawFrame();
@@ -473,6 +493,7 @@
     </script>
 </body>
 </html>
+
 
 
 
