@@ -74,6 +74,7 @@
             line-height: var(--line-height);
             padding: var(--padding);
             border-radius: calc((var(--line-height) + var(--padding) * 2) / 2);
+            color: white;
         }
     </style>
 </head>
@@ -88,13 +89,13 @@
     </div>
     <div id="buttons">
         <div id="move">
-            <div id="up"></div>
-            <div id="down"></div>
-            <div id="left"></div>
-            <div id="right"></div>
+            <div id="up">↑</div>
+            <div id="down">↓</div>
+            <div id="left">←</div>
+            <div id="right">→</div>
         </div>
-        <div id="undo"></div>
-        <div id="tryAgain"></div>
+        <div id="undo">Undo</div>
+        <div id="tryAgain">Try Again</div>
     </div>
     <script>
         const canvas = document.getElementById('canvas');
@@ -463,6 +464,7 @@
     </script>
 </body>
 </html>
+
 
 
 
