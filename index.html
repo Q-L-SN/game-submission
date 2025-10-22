@@ -241,7 +241,15 @@
         }
 
         function check() {
-            return !Array.from(canvas.children).some((item, index) => (index - 64 * 2) % 4 == 0 && Math.floor((index - 64 * 2) / 64) % 4 == 0 && item.style.backgroundColor == 'papayawhip');
+            if (!Array.from(canvas.children).some((item, index) => (index - 64 * 2) % 4 == 0 && Math.floor((index - 64 * 2) / 64) % 4 == 0 && item.style.backgroundColor == 'papayawhip')) {
+                level++;
+                drawFrame();
+                return;
+            }
+            if (levels[level][0].remainingSteps == 0) {
+                document.getElementById('gameover').style.display = 'flex';
+                document.getElementById('buttons').style.visibility = 'hidden';
+            }
         }
 
         function up() {
@@ -458,15 +466,7 @@
                     document.getElementById('right').classList.add('hover');
                     break;
             }
-            if (check()) {
-                level++;
-                drawFrame();
-                return;
-            }
-            if (levels[level][0].remainingSteps == 0) {
-                document.getElementById('gameover').style.display = 'flex';
-                document.getElementById('buttons').style.visibility = 'hidden';
-            }
+            check();
         });
         document.addEventListener('keyup', (e) => {
             switch (e.key) {
@@ -484,6 +484,22 @@
                     break;
             }
         });
+        document.getElementById('up').addEventListener('click', () => {
+            up();
+            check();
+        });
+        document.getElementById('down').addEventListener('click', () => {
+            down();
+            check();
+        });
+        document.getElementById('left').addEventListener('click', () => {
+            left();
+            check();
+        });
+        document.getElementById('right').addEventListener('click', () => {
+            right();
+            check();
+        });
         document.getElementById('tryAgainButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
             drawFrame();
@@ -493,6 +509,7 @@
     </script>
 </body>
 </html>
+
 
 
 
