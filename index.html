@@ -92,7 +92,7 @@
     <div id="wrapper">
         <div id="gameover" class="filled">
             GAME OVER
-            <div id="tryAgainButton">TRY AGAIN</div>
+            <div id="tryAgainButton">Try Again</div>
         </div>
         <div id="canvas"></div>
     </div>
@@ -500,6 +500,14 @@
             right();
             check();
         });
+        document.getElementById('undo').addEventListener('click', () => {
+            levels[level].shift();
+            drawFrame();
+        });
+        document.getElementById('tryAgain').addEventListener('click', () => {
+            levels[level] = [levels[level].at(-1)];
+            drawFrame();
+        });
         document.getElementById('tryAgainButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
             drawFrame();
@@ -509,6 +517,7 @@
     </script>
 </body>
 </html>
+
 
 
 
