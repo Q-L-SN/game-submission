@@ -208,7 +208,7 @@
         }
 
         function getControl() {
-            return levels[level][0].blocks.find(item => item.type == item.underControl);
+            return levels[level][0].blocks.find(item => item.type == levels[level][0].underControl);
         }
 
         function up() {
@@ -435,6 +435,7 @@
     </script>
 </body>
 </html>
+
 
 
 
