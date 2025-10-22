@@ -59,11 +59,21 @@
             height: min(calc((100vw - var(--gap) * 63) / 64), 7.1px);
             background-color: darkgrey;
         }
-        #buttons {
+        #buttons, #move {
             padding: 0px 15px;
             display: flex;
             flex-direction: row;
             gap: 10px;
+        }
+        #buttons div {
+            background-color: #262626;
+            --font-size: 15px;
+            --line-height: calc(var(--font-size) * 1.2);
+            --padding: 5px;
+            font-size: var(--font-size);
+            line-height: var(--line-height);
+            padding: var(--padding);
+            border-radius: calc((var(--line-height) + var(--padding) * 2) / 2);
         }
     </style>
 </head>
@@ -453,6 +463,7 @@
     </script>
 </body>
 </html>
+
 
 
 
