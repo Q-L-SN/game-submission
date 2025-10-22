@@ -212,7 +212,7 @@
         }
 
         function up() {
-            const control = getControl();
+            let control = getControl();
             if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
                 updateRemainingSteps();
                 control = getControl(); //更新
@@ -260,7 +260,7 @@
         }
 
         function down() {
-            const control = getControl();
+            let control = getControl();
             if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'right-bottom') && control.h != control.hard.h) {
                 updateRemainingSteps();
                 control = getControl(); //更新
@@ -308,7 +308,7 @@
         }
 
         function left() {
-            const control = getControl();
+            let control = getControl();
             if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
                 updateRemainingSteps();
                 control = getControl(); //更新
@@ -356,7 +356,7 @@
         }
 
         function right() {
-            const control = getControl();
+            let control = getControl();
             if ((control.hard.corner == 'right-bottom' || control.hard.corner == 'right-top') && control.w != control.hard.w) {
                 updateRemainingSteps();
                 control = getControl(); //更新
@@ -435,6 +435,7 @@
     </script>
 </body>
 </html>
+
 
 
 
