@@ -63,11 +63,16 @@
             height: min(calc((100vw - var(--gap) * 63) / 64), 7.1px);
             background-color: darkgrey;
         }
-        #buttons, #move {
+        #buttons {
             padding: 0px 15px;
             display: flex;
             flex-direction: row;
             gap: 10px;
+        }
+        #move {
+            position: relative;
+            height: 50px;
+            width: 65px;
         }
         #buttons div:not(#move), #move div {
             background-color: #262626;
@@ -79,6 +84,26 @@
         }
         #move div {
             width: var(--buttons-line-height);
+            position: absolute;
+        }
+        #up {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #down {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #left {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        #right {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
         }
         #buttons div.hover:not(#move), #move div.hover, #buttons div:hover:not(#move), #move div:hover {
             background-color: #444444;
@@ -521,6 +546,7 @@
     </script>
 </body>
 </html>
+
 
 
 
