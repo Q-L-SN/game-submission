@@ -9,6 +9,8 @@
             --buttons-font-size: 20px;
             --buttons-line-height: calc(var(--buttons-font-size) * 1.2);
             --buttons-padding: 8px;
+            --pixel-width: 7.4px;
+            --line-width: 0.5px;
         }
         body {
             margin: 0;
@@ -32,8 +34,8 @@
         }
         #canvas {
             display: grid;
-            grid-template-columns: repeat(64, min(calc((100vw * 63) / 64), 7.4px));
-            grid-template-rows: repeat(64, min(calc((100vw * 63) / 64), 7.4px));
+            grid-template-columns: repeat(64, min(calc((100vw * 63) / 64), var(--pixel-width)));
+            grid-template-rows: repeat(64, min(calc((100vw * 63) / 64), var(--pixel-width)));
             background-color: grey;
         }
         .filled {
@@ -59,8 +61,8 @@
             color: white;
         }
         .pixel {
-            width: min(calc((100vw - var(--gap) * 63) / 64), 7.1px);
-            height: min(calc((100vw - var(--gap) * 63) / 64), 7.1px);
+            width: min(calc((100vw - var(--gap) * 63) / 64), var(--pixel-width));
+            height: min(calc((100vw - var(--gap) * 63) / 64), var(--pixel-width));
             background-color: darkgrey;
         }
         #buttons {
@@ -110,6 +112,52 @@
         #buttons div.hover:not(#move), #move div.hover, #buttons div:hover:not(#move), #move div:hover {
             background-color: #444444;
         }
+        #lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .line {
+            position: absolute;
+            background: rgba(0,0,0,.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            mask-image: radial-gradient(100% 100% at 50% 50%, #000 75%, transparent);
+            -webkit-mask-image: radial-gradient(100% 100% at 50% 50%, #000 75%, transparent);
+        }
+        .line.horizontal {
+            width: 100%;
+            height: var(--line-width);
+            transform: translateY(-50%);
+        }
+        .line.vertical {
+            height: 100%;
+            width: var(--line-width);
+            transform: translateX(-50%);
+        }
+        #topLine {
+            width: 100%
+            height: calc(var(--line-width) / 2);
+            background-color: black;
+        }
+        #bottomLine {
+            bottom: 0;
+            width: 100%
+            height: calc(var(--line-width) / 2);
+            background-color: black;
+        }
+        #leftLine {
+            left: 0;
+            height: 100%
+            width: calc(var(--line-width) / 2);
+            background-color: black;
+        }
+        #rightLine {
+            right: 0;
+            height: 100%
+            width: calc(var(--line-width) / 2);
+            background-color: black;
+        }
     </style>
 </head>
 <body>
@@ -120,6 +168,12 @@
             <div id="tryAgainButton">Try Again</div>
         </div>
         <div id="canvas"></div>
+        <div id="lines">
+            <div id="topLine"></div>
+            <div id="bottomLine"></div>
+            <div id="leftLine"></div>
+            <div id="rightLine></div>
+        </div>
     </div>
     <div id="buttons">
         <div id="move">
@@ -165,6 +219,22 @@
             ];
         }
 
+        for (let i = 0; i < 63; i++) {
+            const line = document.createElement('div');
+            line.classList.add('line', 'vertical');
+            if (i > 0) {
+                line.style.left = parseFloat(document.getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i;
+            }
+            document.getElementById('lines').appendChild(line);
+        }
+        for (let i = 0; i < 63; i++) {
+            const line = document.createElement('div');
+            line.classList.add('line', 'horizontal');
+            if (i > 0) {
+                line.style.top = parseFloat(document.getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i;
+            }
+            document.getElementById('lines').appendChild(line);
+        }
         for (let i = 0; i < pixelCount; i++) {
             const pixel = document.createElement('div');
             pixel.classList.add('pixel');
@@ -548,6 +618,7 @@
     </script>
 </body>
 </html>
+
 
 
 
