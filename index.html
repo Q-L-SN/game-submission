@@ -34,8 +34,8 @@
         }
         #canvas {
             display: grid;
-            grid-template-columns: repeat(64, min(calc(100vw / 64, var(--pixel-width))));
-            grid-template-rows: repeat(64, min(calc(100vw / 64, var(--pixel-width))));
+            grid-template-columns: repeat(64, min(calc(100vw / 64), var(--pixel-width)));
+            grid-template-rows: repeat(64, min(calc(100vw / 64), var(--pixel-width)));
             background-color: grey;
         }
         .filled {
@@ -618,6 +618,7 @@
     </script>
 </body>
 </html>
+
 
 
 
