@@ -225,7 +225,7 @@
             const line = document.createElement('div');
             line.classList.add('line', 'vertical');
             if (i > 0) {
-                line.style.left = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i;
+                line.style.left = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i + 'px';
             }
             document.getElementById('lines').appendChild(line);
         }
@@ -233,7 +233,7 @@
             const line = document.createElement('div');
             line.classList.add('line', 'horizontal');
             if (i > 0) {
-                line.style.top = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i;
+                line.style.top = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i + 'px';
             }
             document.getElementById('lines').appendChild(line);
         }
@@ -620,5 +620,6 @@
     </script>
 </body>
 </html>
+
 
 
