@@ -223,20 +223,16 @@
             ];
         }
 
-        for (let i = 0; i < 63; i++) {
+        for (let i = 1; i < 64; i++) {
             const line = document.createElement('div');
             line.classList.add('line', 'vertical');
-            if (i > 0) {
-                line.style.left = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i + 'px';
-            }
+            line.style.left = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i + 'px';
             document.getElementById('lines').appendChild(line);
         }
-        for (let i = 0; i < 63; i++) {
+        for (let i = 1; i < 64; i++) {
             const line = document.createElement('div');
             line.classList.add('line', 'horizontal');
-            if (i > 0) {
-                line.style.top = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i + 'px';
-            }
+            line.style.top = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pixel-width')) * i + 'px';
             document.getElementById('lines').appendChild(line);
         }
         for (let i = 0; i < pixelCount; i++) {
@@ -622,6 +618,7 @@
     </script>
 </body>
 </html>
+
 
 
 
