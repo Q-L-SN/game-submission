@@ -223,6 +223,26 @@
                 ]
             ];
         }
+        const colors = Object.freeze({ //常量 不仅引用不可变
+            blocks: Object.freeze({
+                1: 'deeppink',
+                2: 'aqua',
+                3: 'yellow',
+                4: 'blue',
+                5: 'green',
+                6: 'red',
+                p: Object.freeze({
+                    1: 'papayawhip',
+                    0: 'navajowhite'
+                })
+            }),
+            midBG: 'darkgray',
+            bilateralBG: 'lightslategray',
+            topBar: 'orange',
+            bottomBar: 'forestgreen',
+            controlledCore: 'black',
+            otherCore: 'dimgray'
+        });
 
         for (let i = 1; i < 64; i++) {
             const line = document.createElement('div');
@@ -257,23 +277,23 @@
         function drawFrame(redrawBG = true) {
             if (redrawBG) {
                 Array.from(canvas.children).forEach(item => {
-                    item.style.backgroundColor = 'darkgrey';
+                    item.style.backgroundColor = colors.midBG;
                 });
             }
             document.getElementById('level').innerText = `LEVEL ${level + 1}/${levels.length}`;
             for (let i = 0; i < 64 * 2; i++) {
-                canvas.children[i].style.backgroundColor = 'lightslategray';
+                canvas.children[i].style.backgroundColor = colors.bilateralBG;
             }
             for (let i = 0; i < Math.round(64 / levels[level][0].maxSteps * levels[level][0].remainingSteps); i++) {
-                canvas.children[i].style.backgroundColor = 'orange';
+                canvas.children[i].style.backgroundColor = colors.topBar;
             }
             for (let i = 0; i < 64 * 2; i++) {
-                canvas.children[64 * (64 - 2) + i].style.backgroundColor = 'lightslategray';
+                canvas.children[64 * (64 - 2) + i].style.backgroundColor = colors.bilateralBG;
             }
             for (let i = 0; i <= level; i++) {
                 const width = Math.round((64 - levels.length) / (levels.length + 1));
                 for (let j = 0; j < width; j++) {
-                    canvas.children[64 * (64 - 1) + i * width + i + j].style.backgroundColor = 'forestgreen';
+                    canvas.children[64 * (64 - 1) + i * width + i + j].style.backgroundColor = colors.bottomBar;
                 }
             }
             levels[level][0].blocks.forEach((item) => {
@@ -283,38 +303,34 @@
                         pixels(index).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
                                 canvas.children[q].style.backgroundColor = (() => {
-                                    switch (item.hard?.corner) {
+                                    switch (item.core?.corner) {
                                         case 'left-top':
                                             if (i < item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
-                                                return item.type == '1' ? 'black' : 'dimgray';
+                                                return item.type == '1' ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'left-bottom':
                                             if (item.h - i <= item.hard.h && j < item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
-                                                return item.type == '1' ? 'black' : 'dimgray';
+                                                return item.type == '1' ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-top':
                                             if (i < item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
-                                                return item.type == '1' ? 'black' : 'dimgray';
+                                                return item.type == '1' ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-bottom':
                                             if (item.h - i <= item.hard.h && item.w - j <= item.hard.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
-                                                return item.type == '1' ? 'black' : 'dimgray';
+                                                return item.type == '1' ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case undefined:
                                             break;
                                     }
-                                    switch (item.type) {
-                                        case '1': return 'deeppink';
-                                        case '2': return 'aqua';
-                                        case '3': return 'yellow';
-                                        case '4': return 'blue';
-                                        case '5': return 'green';
-                                        case '6': return 'red';
-                                        case 'p': return (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                    if (item.type != 'p') {
+                                        return colors.blocks[item.type];
+                                    } else {
+                                        return colors.blocks.p[(xindex + yindex + 1) % 2];
                                     }
                                 })();
                             });
@@ -328,7 +344,7 @@
             levels[level].unshift(JSON.parse(JSON.stringify(levels[level][0])));
             levels[level][0].remainingSteps--;
             for (let i = 0; i < 64 / levels[level][0].maxSteps; i++) {
-                canvas.children[Math.round(64 / levels[level][0].maxSteps * levels[level][0].remainingSteps) + i].style.backgroundColor = 'lightslategray';
+                canvas.children[Math.round(64 / levels[level][0].maxSteps * levels[level][0].remainingSteps) + i].style.backgroundColor = colors.bilateralBG;
             }
         }
 
@@ -337,7 +353,7 @@
         }
 
         function check() {
-            if (!Array.from(canvas.children).some((item, index) => (index - 64 * 2) % 4 == 0 && Math.floor((index - 64 * 2) / 64) % 4 == 0 && item.style.backgroundColor == 'papayawhip')) {
+            if (!Array.from(canvas.children).some((item, index) => (index - 64 * 2) % 4 == 0 && Math.floor((index - 64 * 2) / 64) % 4 == 0 && item.style.backgroundColor == colors.blocks.p[1])) {
                 if (level != levels.length - 1) {
                     level++;
                     drawFrame();
@@ -354,7 +370,7 @@
 
         function up() {
             let control = getControl();
-            if ((control.hard.corner == 'left-top' || control.hard.corner == 'right-top') && control.h != control.hard.h) {
+            if ((control.core.corner == 'left-top' || control.core.corner == 'right-top') && control.h != control.core.h) {
                 updateRemainingSteps();
                 control = getControl(); //更新
                 control.h--;
@@ -363,19 +379,19 @@
                         p.forEach((q, xindex) => {
                             if (levels[level][0].blocks.filter(item => item.type == 'p')
                                 .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y + control.h && control.y + control.h <= item.y + item.h - 1)) {
-                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                canvas.children[q].style.backgroundColor = colors.blocks.p[(xindex + yindex + 1) % 2];
                             } else {
-                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                                canvas.children[q].style.backgroundColor = colors.midBG;
                             }
                         });
                     });
                 }
             } else if (levels[level][0].blocks.every(item => item.type == 'p' || !((control.y - 1 >= item.y && control.y - 1 <= item.y + item.h - 1)
                 && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y != 1) {
-                if (control.hard.corner == 'left-top') {
-                    control.hard.corner = 'left-bottom';
-                } else if (control.hard.corner == 'right-top') {
-                    control.hard.corner = 'right-bottom';
+                if (control.core.corner == 'left-top') {
+                    control.core.corner = 'left-bottom';
+                } else if (control.core.corner == 'right-top') {
+                    control.core.corner = 'right-bottom';
                 }
                 updateRemainingSteps();
                 control = getControl(); //更新
@@ -384,25 +400,22 @@
                 for (let i = 0; i < control.w; i++) {
                     pixels(((control.y - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                         p.forEach(q => {
-                            canvas.children[q].style.backgroundColor = (() => {
-                                switch (control.type) {
-                                    case '1': return 'deeppink';
-                                    case '2': return 'aqua';
-                                    case '3': return 'yellow';
-                                    case '4': return 'blue';
-                                    case '5': return 'green';
-                                    case '6': return 'red';
-                                }
-                            })();
+                            canvas.children[q].style.backgroundColor = colors.blocks[control.type];
                         });
                     });
                 }
             }
+            if ((() => {
+                let blo;
+                for (let i = 1; true; i++) {
+                    for (let j = 0; j < control.w; j++) {
+                        let temp = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4].style.backgroundColor;
+                        if (temp
         }
 
         function down() {
             let control = getControl();
-            if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'right-bottom') && control.h != control.hard.h) {
+            if ((control.core.corner == 'left-bottom' || control.core.corner == 'right-bottom') && control.h != control.core.h) {
                 updateRemainingSteps();
                 control = getControl(); //更新
                 control.h--;
@@ -412,35 +425,26 @@
                         p.forEach((q, xindex) => {
                             if (levels[level][0].blocks.filter(item => item.type == 'p')
                                 .some(item => item.x <= control.x + i && control.x + i <= item.x + item.w - 1 && item.y <= control.y - 1 && control.y - 1 <= item.y + item.h - 1)) {
-                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                canvas.children[q].style.backgroundColor = colors.blocks.p[(xindex + yindex + 1) % 2];
                             } else {
-                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                                canvas.children[q].style.backgroundColor = colors.midBG;
                             }
                         });
                     });
                 }
             } else if (levels[level][0].blocks.every(item => item.type == 'p' || !((control.y + control.h >= item.y && control.y + control.h <= item.y + item.h - 1) 
                        && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y + (control.h - 1) != 15) {
-                if (control.hard.corner == 'left-bottom') {
-                    control.hard.corner = 'left-top';
+                if (control.core.corner == 'left-bottom') {
+                    control.core.corner = 'left-top';
                 } else if (control.hard.corner == 'right-bottom') {
-                    control.hard.corner = 'right-top';
+                    control.core.corner = 'right-top';
                 }
                 updateRemainingSteps();
                 control = getControl(); //更新
                 for (let i = 0; i < control.w; i++) {
                     pixels(((control.y + control.h - 1) * 4 + 2) * 64 + (control.x - 1 + i) * 4).forEach(p => {
                         p.forEach(q => {
-                            canvas.children[q].style.backgroundColor = (() => {
-                                switch (control.type) {
-                                    case '1': return 'deeppink';
-                                    case '2': return 'aqua';
-                                    case '3': return 'yellow';
-                                    case '4': return 'blue';
-                                    case '5': return 'green';
-                                    case '6': return 'red';
-                                }
-                            })();
+                            canvas.children[q].style.backgroundColor = colors.blocks[control.type];
                         });
                     });
                 }
@@ -450,7 +454,7 @@
 
         function left() {
             let control = getControl();
-            if ((control.hard.corner == 'left-bottom' || control.hard.corner == 'left-top') && control.w != control.hard.w) {
+            if ((control.core.corner == 'left-bottom' || control.core.corner == 'left-top') && control.w != control.core.w) {
                 updateRemainingSteps();
                 control = getControl(); //更新
                 control.w--;
@@ -459,19 +463,19 @@
                         p.forEach((q, xindex) => {
                             if (levels[level][0].blocks.filter(item => item.type == 'p')
                                 .some(item => item.x <= control.x + control.w && control.x + control.w <= item.x + item.w - 1 && item.y <= control.y + i  && control.y + i <= item.y + item.h - 1)) {
-                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                canvas.children[q].style.backgroundColor = colors.blocks.p[(xindex + yindex + 1) % 2];
                             } else {
-                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                                canvas.children[q].style.backgroundColor = colors.midBG;
                             }
                         });
                     });
                 }
             } else if (levels[level][0].blocks.every(item => item.type == 'p' || !((control.x - 1 >= item.x && control.x - 1 <= item.x + item.w - 1)
                        && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x != 1) {
-                if (control.hard.corner == 'left-bottom') {
-                    control.hard.corner = 'right-bottom';
+                if (control.core.corner == 'left-bottom') {
+                    control.core.corner = 'right-bottom';
                 } else if (control.hard.corner == 'left-top') {
-                    control.hard.corner = 'right-top';
+                    control.core.corner = 'right-top';
                 }
                 updateRemainingSteps();
                 control = getControl(); //更新
@@ -480,16 +484,7 @@
                 for (let i = 0; i < control.h; i++) {
                     pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x - 1) * 4).forEach(p => {
                         p.forEach(q => {
-                            canvas.children[q].style.backgroundColor = (() => {
-                                switch (control.type) {
-                                    case '1': return 'deeppink';
-                                    case '2': return 'aqua';
-                                    case '3': return 'yellow';
-                                    case '4': return 'blue';
-                                    case '5': return 'green';
-                                    case '6': return 'red';
-                                }
-                            })();
+                            canvas.children[q].style.backgroundColor = colors.blocks[coltrol.type];
                         });
                     });
                 }
@@ -498,7 +493,7 @@
 
         function right() {
             let control = getControl();
-            if ((control.hard.corner == 'right-bottom' || control.hard.corner == 'right-top') && control.w != control.hard.w) {
+            if ((control.core.corner == 'right-bottom' || control.core.corner == 'right-top') && control.w != control.core.w) {
                 updateRemainingSteps();
                 control = getControl(); //更新
                 control.x++;
@@ -508,19 +503,19 @@
                         p.forEach((q, xindex) => {
                             if (levels[level][0].blocks.filter(item => item.type == 'p')
                                 .some(item => item.x <= control.x - 1 && control.x - 1 <= item.x + item.w - 1 && item.y <= control.y + i && control.y + i <= item.y + item.h - 1)) {
-                                canvas.children[q].style.backgroundColor = (xindex + yindex + 1) % 2 ? 'papayawhip' : 'navajowhite';
+                                canvas.children[q].style.backgroundColor = colors.blocks.p[(xindex + yindex + 1) % 2];
                             } else {
-                                canvas.children[q].style.backgroundColor = 'darkgrey';
+                                canvas.children[q].style.backgroundColor = colors.midBG;
                             }
                         });
                     });
                 }
             } else if (levels[level][0].blocks.every(item => item.type == 'p' || !((control.x + control.w >= item.x && control.x + control.w <= item.x + item.w - 1) 
                        && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 16) {
-                if (control.hard.corner == 'right-bottom') {
-                    control.hard.corner = 'left-bottom';
+                if (control.core.corner == 'right-bottom') {
+                    control.core.corner = 'left-bottom';
                 } else if (control.hard.corner == 'right-top') {
-                    control.hard.corner = 'left-top';
+                    control.core.corner = 'left-top';
                 }
                 updateRemainingSteps();
                 control = getControl(); //更新
@@ -528,16 +523,7 @@
                 for (let i = 0; i < control.h; i++) {
                     pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x + control.w - 2) * 4).forEach(p => {
                         p.forEach(q => {
-                            canvas.children[q].style.backgroundColor = (() => {
-                                switch (control.type) {
-                                    case '1': return 'deeppink';
-                                    case '2': return 'aqua';
-                                    case '3': return 'yellow';
-                                    case '4': return 'blue';
-                                    case '5': return 'green';
-                                    case '6': return 'red';
-                                }
-                            })();
+                            canvas.children[q].style.backgroundColor = colors.blocks[control.type];
                         });
                     });
                 }
@@ -619,6 +605,7 @@
     </script>
 </body>
 </html>
+
 
 
 
