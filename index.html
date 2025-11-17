@@ -406,15 +406,18 @@
                     });
                 }
             }
-            if ((() => {
+            let topTarget = (() => {
                 let blo;
                 for (let i = 1; true; i++) {
                     for (let j = 0; j < control.w; j++) {
-                        let temp = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4].style.backgroundColor;
-                        if ([1,2,3,4,5,6].some(item => colors.blocks[item] == temp) && temp != blo) {
+                        let color = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4].style.backgroundColor;
+                        if
+                        if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color) && color != blo) {
                             return null;
                         }
                     }
+                }
+            })());
         }
 
         function down() {
@@ -609,6 +612,7 @@
     </script>
 </body>
 </html>
+
 
 
 
