@@ -529,7 +529,7 @@
                 for (let i = 0; i < control.h; i++) {
                     pixels(((control.y + i - 1) * 4 + 2) * 64 + (control.x - 1) * 4).forEach(p => {
                         p.forEach(q => {
-                            canvas.children[q].style.backgroundColor = colors.blocks[coltrol.type];
+                            canvas.children[q].style.backgroundColor = colors.blocks[control.type];
                         });
                     });
                 }
@@ -650,19 +650,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
