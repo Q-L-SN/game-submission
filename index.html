@@ -407,20 +407,54 @@
                 }
             }
             let topTarget = (() => {
-                let blo;
+                let c;
                 for (let i = 1; true; i++) {
+                    let flag = false;
                     for (let j = 0; j < control.w; j++) {
-                        let color = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4].style.backgroundColor;
+                        let color = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4]?.style.backgroundColor;
                         if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
-                            if (i > 1 && color != blo) {
-                                return null;
+                            if (i > 1) {
+                                if (color != c) {
+                                    if (flag) {
+                                        return null;
+                                    }
+                                } else {
+                                    flag = true;
+                                }
                             } else {
-                                blo = color;
+                                if (c) {
+                                    if (color != c) {
+                                        return null;
+                                    }
+                                } else {
+                                    c = color;
+                                }
                             }
+                        }
+                    }
+                    if (!flag) {
+                        if (i > 1) {
+                            return c;
+                        } else {
+                            return null;
                         }
                     }
                 }
             })());
+            if (topTarget) {
+                let block = levels[level][0].blocks.find(item => colors.blocks[item.type] == topTarget);
+                for (let i = 0; i < block.h; i++) {
+                    for (let j = 0; j < block.w; j++) {
+                        pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
+                            p.forEach((q, xindex) => {
+                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                    canvas.children[q].style.backgroundColor = colors.target;
+                                }
+                            });
+                        });
+                    }
+                }
+            }
         }
 
         function down() {
@@ -615,6 +649,7 @@
     </script>
 </body>
 </html>
+
 
 
 
