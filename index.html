@@ -458,6 +458,25 @@
                     }
                 }
             })();
+            if (levels[level][1].bottomTarget) {
+                const block = levels[level][1].blocks.find(item => colors.blocks[item.type] == levels[level][1].bottomTarget);
+                for (let i = 0; i < block.h; i++) {
+                    for (let j = 0; j < block.w; j++) {
+                        pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
+                            p.forEach((q, xindex) => {
+                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                    switch (block.core.corner) {
+                                        case 'left-top':
+                                            if (i < block.core.h) {
+                                                
+                                    }
+                                    canvas.children[q].style.backgroundColor = colors.target;
+                                }
+                            });
+                        });
+                    }
+                }
+            }
             if (levels[level][0].bottomTarget) {
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].bottomTarget);
                 for (let i = 0; i < block.h; i++) {
@@ -709,6 +728,7 @@
     </script>
 </body>
 </html>
+
 
 
 
