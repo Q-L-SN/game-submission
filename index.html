@@ -481,7 +481,7 @@
                        && (item.x < control.x + control.w && control.x < item.x + item.w))) && control.y + (control.h - 1) != 15) {
                 if (control.core.corner == 'left-bottom') {
                     control.core.corner = 'left-top';
-                } else if (control.hard.corner == 'right-bottom') {
+                } else if (control.core.corner == 'right-bottom') {
                     control.core.corner = 'right-top';
                 }
                 updateRemainingSteps();
@@ -519,7 +519,7 @@
                        && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x != 1) {
                 if (control.core.corner == 'left-bottom') {
                     control.core.corner = 'right-bottom';
-                } else if (control.hard.corner == 'left-top') {
+                } else if (control.core.corner == 'left-top') {
                     control.core.corner = 'right-top';
                 }
                 updateRemainingSteps();
@@ -559,7 +559,7 @@
                        && (item.y < control.y + control.h && control.y < item.y + item.h))) && control.x + (control.w - 1) != 16) {
                 if (control.core.corner == 'right-bottom') {
                     control.core.corner = 'left-bottom';
-                } else if (control.hard.corner == 'right-top') {
+                } else if (control.core.corner == 'right-top') {
                     control.core.corner = 'left-top';
                 }
                 updateRemainingSteps();
@@ -650,6 +650,7 @@
     </script>
 </body>
 </html>
+
 
 
 
