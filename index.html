@@ -422,12 +422,13 @@
                                     flag = true;
                                 }
                             } else {
-                                if (c) {
+                                if (flag) {
                                     if (color != c) {
                                         return null;
                                     }
                                 } else {
                                     c = color;
+                                    flag = true;
                                 }
                             }
                         }
@@ -649,6 +650,7 @@
     </script>
 </body>
 </html>
+
 
 
 
