@@ -369,7 +369,7 @@
             }
         }
 
-        function checkAdjacentBlocks() {
+        function checkAdjacentBlocks(control) {
             levels[level][0].topTarget = (() => {
                 let c;
                 for (let i = 1; true; i++) {
@@ -509,7 +509,7 @@
                     });
                 }
             }
-            checkAdjacentBlocks();
+            checkAdjacentBlocks(control);
         }
 
         function down() {
@@ -549,7 +549,7 @@
                 }
                 control.h++;
             }
-            checkAdjacentBlocks();
+            checkAdjacentBlocks(control);
         }
 
         function left() {
@@ -589,7 +589,7 @@
                     });
                 }
             }
-            checkAdjacentBlocks();
+            checkAdjacentBlocks(control);
         }
 
         function right() {
@@ -629,7 +629,7 @@
                     });
                 }
             }
-            checkAdjacentBlocks();
+            checkAdjacentBlocks(control);
         }
 
         document.addEventListener('keydown', (e) => {
@@ -707,4 +707,5 @@
     </script>
 </body>
 </html>
+
 
