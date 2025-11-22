@@ -369,6 +369,109 @@
             }
         }
 
+        function checkAdjacentBlocks() {
+            levels[level][0].topTarget = (() => {
+                let c;
+                for (let i = 1; true; i++) {
+                    let flag = false;
+                    for (let j = 0; j < control.w; j++) {
+                        let color = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4]?.style.backgroundColor;
+                        if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
+                            if (i > 1) {
+                                if (color != c) {
+                                    if (flag) {
+                                        return null;
+                                    }
+                                } else {
+                                    flag = true;
+                                }
+                            } else {
+                                if (flag) {
+                                    if (color != c) {
+                                        return null;
+                                    }
+                                } else {
+                                    c = color;
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!flag) {
+                        if (i > 1) {
+                            return c;
+                        } else {
+                            return null;
+                        }
+                    }
+                }
+            })();
+            if (levels[level][0].topTarget) {
+                let block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].topTarget);
+                for (let i = 0; i < block.h; i++) {
+                    for (let j = 0; j < block.w; j++) {
+                        pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
+                            p.forEach((q, xindex) => {
+                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                    canvas.children[q].style.backgroundColor = colors.target;
+                                }
+                            });
+                        });
+                    }
+                }
+            }
+            levels[level][0].bottomTarget = (() => {
+                let c;
+                for (let i = 1; true; i++) {
+                    let flag = false;
+                    for (let j = 0; j < control.w; j++) {
+                        let color = canvas.children[((control.y - 2 + control.h + i) * 4 + 2) * 64 + (control.x - 1 + j) * 4]?.style.backgroundColor;
+                        if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
+                            if (i > 1) {
+                                if (color != c) {
+                                    if (flag) {
+                                        return null;
+                                    }
+                                } else {
+                                    flag = true;
+                                }
+                            } else {
+                                if (flag) {
+                                    if (color != c) {
+                                        return null;
+                                    }
+                                } else {
+                                    c = color;
+                                    flag = true;
+                                }
+                            }
+                        }
+                    }
+                    if (!flag) {
+                        if (i > 1) {
+                            return c;
+                        } else {
+                            return null;
+                        }
+                    }
+                }
+            })();
+            if (levels[level][0].bottomTarget) {
+                let block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].bottomTarget);
+                for (let i = 0; i < block.h; i++) {
+                    for (let j = 0; j < block.w; j++) {
+                        pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
+                            p.forEach((q, xindex) => {
+                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                    canvas.children[q].style.backgroundColor = colors.target;
+                                }
+                            });
+                        });
+                    }
+                }
+            }
+        }
+
         function up() {
             let control = getControl();
             if ((control.core.corner == 'left-top' || control.core.corner == 'right-top') && control.h != control.core.h) {
@@ -406,56 +509,7 @@
                     });
                 }
             }
-            let topTarget = (() => {
-                let c;
-                for (let i = 1; true; i++) {
-                    let flag = false;
-                    for (let j = 0; j < control.w; j++) {
-                        let color = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4]?.style.backgroundColor;
-                        if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
-                            if (i > 1) {
-                                if (color != c) {
-                                    if (flag) {
-                                        return null;
-                                    }
-                                } else {
-                                    flag = true;
-                                }
-                            } else {
-                                if (flag) {
-                                    if (color != c) {
-                                        return null;
-                                    }
-                                } else {
-                                    c = color;
-                                    flag = true;
-                                }
-                            }
-                        }
-                    }
-                    if (!flag) {
-                        if (i > 1) {
-                            return c;
-                        } else {
-                            return null;
-                        }
-                    }
-                }
-            })();
-            if (topTarget) {
-                let block = levels[level][0].blocks.find(item => colors.blocks[item.type] == topTarget);
-                for (let i = 0; i < block.h; i++) {
-                    for (let j = 0; j < block.w; j++) {
-                        pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
-                            p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
-                                    canvas.children[q].style.backgroundColor = colors.target;
-                                }
-                            });
-                        });
-                    }
-                }
-            }
+            checkAdjacentBlocks();
         }
 
         function down() {
@@ -495,6 +549,7 @@
                 }
                 control.h++;
             }
+            checkAdjacentBlocks();
         }
 
         function left() {
@@ -534,6 +589,7 @@
                     });
                 }
             }
+            checkAdjacentBlocks();
         }
 
         function right() {
@@ -573,6 +629,7 @@
                     });
                 }
             }
+            checkAdjacentBlocks();
         }
 
         document.addEventListener('keydown', (e) => {
@@ -650,3 +707,4 @@
     </script>
 </body>
 </html>
+
