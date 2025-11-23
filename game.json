@@ -21,7 +21,7 @@
                 "h": 4,
                 "w": 2,
                 "core": {
-                    "corner": "left-bottom",
+                    "corner": "left-top",
                     "h": 2,
                     "w": 2
                 }
@@ -36,6 +36,7 @@
         ]
     }
 ]
+
 
 
 
