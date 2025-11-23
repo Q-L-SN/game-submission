@@ -690,6 +690,9 @@
                         });
                     }
                 }
+                levels[level][0].underControl = levels[level][0].blocks
+                    .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].topTarget).type;
+                control = getControl();
             }
             checkAdjacentBlocks(control);
         }
@@ -889,3 +892,4 @@
     </script>
 </body>
 </html>
+
