@@ -577,6 +577,7 @@
             if (levels[level][1]) {
                 [levels[level][1].topTarget, levels[level][1].bottomTarget, levels[level][1].leftTarget, levels[level][1].rightTarget]
                     .filter(item => ![levels[level][0].topTarget, levels[level][0].bottomTarget, levels[level][0].leftTarget, levels[level][0].rightTarget].includes(item)).forEach(c => {
+                        console.log(c);
                     const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == c);
                     for (let i = 0; i < block.h; i++) {
                         for (let j = 0; j < block.w; j++) {
@@ -1005,4 +1006,5 @@
     </script>
 </body>
 </html>
+
 
