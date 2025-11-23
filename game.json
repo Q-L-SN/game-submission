@@ -17,11 +17,11 @@
             {
                 "type": "2",
                 "x": 8,
-                "y": 1,
-                "h": 2,
+                "y": 3,
+                "h": 4,
                 "w": 2,
                 "core": {
-                    "corner": "right-top",
+                    "corner": "left-bottom",
                     "h": 2,
                     "w": 2
                 }
@@ -36,6 +36,7 @@
         ]
     }
 ]
+
 
 
 
