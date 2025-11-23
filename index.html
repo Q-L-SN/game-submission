@@ -484,21 +484,29 @@
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
                                                 canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            } else {
+                                                canvas.children[q].style.backgroundColor = c;
                                             }
                                             break;
                                         case 'left-bottom':
                                             if (i >= block.h - block.core.h && j < block.core.w) {
                                                 canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            } else {
+                                                canvas.children[q].style.backgroundColor = c;
                                             }
                                             break;
                                         case 'right-top':
                                             if (i < block.core.h && j >= block.w - block.core.w) {
                                                 canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            } else {
+                                                canvas.children[q].style.backgroundColor = c;
                                             }
                                             break;
                                         case 'right-bottom':
                                             if (i >= block.h - block.core.h && j >= block.w - block.core.w) {
                                                 canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            } else {
+                                                canvas.children[q].style.backgroundColor = c;
                                             }
                                             break;
                                     }
@@ -745,6 +753,7 @@
     </script>
 </body>
 </html>
+
 
 
 
