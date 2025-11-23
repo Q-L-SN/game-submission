@@ -273,6 +273,7 @@
                     levels[i] = [item]; //变成数组成员再赋值给自己，从而变成嵌套数组，用于记录帧
                 });
                 drawFrame(false);
+                checkAdjacentBlocks(getControl());
             });
 
         function drawFrame(redrawBG = true) {
@@ -1006,5 +1007,6 @@
     </script>
 </body>
 </html>
+
 
 
