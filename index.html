@@ -360,8 +360,7 @@
                     level++;
                     drawFrame();
                 } else {
-                    document.getElementById('level').innerHTML = '<div style="color: white; font-size: 30px;">你已通关！</div>';
-                    document.getElementById('lines').style.display = 'none';
+                    document.getElementById('level').innerTEXT = '你已通关！';
                 }
                 return;
             }
@@ -1083,5 +1082,6 @@
     </script>
 </body>
 </html>
+
 
 
