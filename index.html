@@ -458,25 +458,6 @@
                     }
                 }
             })();
-            if (levels[level][1].bottomTarget) {
-                const block = levels[level][1].blocks.find(item => colors.blocks[item.type] == levels[level][1].bottomTarget);
-                for (let i = 0; i < block.h; i++) {
-                    for (let j = 0; j < block.w; j++) {
-                        pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
-                            p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
-                                    switch (block.core.corner) {
-                                        case 'left-top':
-                                            if (i < block.core.h) {
-                                                
-                                    }
-                                    canvas.children[q].style.backgroundColor = colors.target;
-                                }
-                            });
-                        });
-                    }
-                }
-            }
             if (levels[level][0].bottomTarget) {
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].bottomTarget);
                 for (let i = 0; i < block.h; i++) {
@@ -491,6 +472,42 @@
                     }
                 }
             }
+            [levels[level][1].topTarget, levels[level][1].bottomTarget]
+                .filter(item => ![levels[level][0].topTarget, levels[level][0].bottomTarget].includes(item)).forEach(c => {
+                const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == c);
+                for (let i = 0; i < block.h; i++) {
+                    for (let j = 0; j < block.w; j++) {
+                        pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
+                            p.forEach((q, xindex) => {
+                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                    switch (block.core.corner) {
+                                        case 'left-top':
+                                            if (i < block.core.h && j < block.core.w) {
+                                                canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            }
+                                            break;
+                                        case 'left-bottom':
+                                            if (i >= block.h - block.core.h && j < block.core.w) {
+                                                canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            }
+                                            break;
+                                        case 'right-top':
+                                            if (i < block.core.h && j >= block.w - block.core.w) {
+                                                canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            }
+                                            break;
+                                        case 'right-bottom':
+                                            if (i >= block.h - block.core.h && j >= block.w - block.core.w) {
+                                                canvas.children[q].style.backgroundColor = colors.otherCore;
+                                            }
+                                            break;
+                                    }
+                                }
+                            });
+                        });
+                    }
+                }
+            });
         }
 
         function up() {
@@ -728,6 +745,7 @@
     </script>
 </body>
 </html>
+
 
 
 
