@@ -360,7 +360,8 @@
                     level++;
                     drawFrame();
                 } else {
-
+                    canvas.innerHTML = '<div style="color: white; font-size: 30px;">你已通关！</div>';
+                    document.getElementById('lines').style.display = 'none';
                 }
                 return;
             }
@@ -1082,3 +1083,4 @@
     </script>
 </body>
 </html>
+
