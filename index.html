@@ -787,6 +787,8 @@
                     });
                 }
             } else if (levels[level][0].topTarget) {
+                updateRemainingSteps();
+                control = getControl();
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].topTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -865,6 +867,8 @@
                 }
                 control.h++;
             } else if (levels[level][0].bottomTarget) {
+                updateRemainingSteps();
+                control = getControl();
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].bottomTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -943,6 +947,8 @@
                     });
                 }
             } else if (levels[level][0].leftTarget) {
+                updateRemainingSteps();
+                control = getControl();
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].leftTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -1021,6 +1027,8 @@
                     });
                 }
             } else if (levels[level][0].rightTarget) {
+                updateRemainingSteps();
+                control = getControl();
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].rightTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -1151,6 +1159,7 @@
     </script>
 </body>
 </html>
+
 
 
 
