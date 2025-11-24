@@ -50,16 +50,23 @@
             color: white;
             justify-content: center;
             align-items: center;
-        }
-        #gameover {
             font-size: 30px;
             gap: 20px;
         }
-        #tryAgainButton {
+        #gameover {
+            border: 2px solid purple;
+        }
+        #victory {
+            border: 2px solid aqua;
+        }
+        #levelComplete {
+            border: 2px solid lime;
+        }
+        #tryAgainButton, #replayButton, #nextLevelButton {
             font-size: 20px;
             padding: 8px;
-            border: 2px solid purple;
             color: white;
+            border: inherit;
         }
         .pixel {
             width: min(calc((100vw * 63) / 64), var(--pixel-width));
@@ -172,6 +179,14 @@
             GAME OVER
             <div id="tryAgainButton">Try Again</div>
         </div>
+        <div id="victory" class="filled">
+            VICTORY!
+            <div id="replayButton">Replay</div>
+        </div>
+        <div id="levelComplete" class="filled">
+            LEVEL COMPLETE
+            <div id="nextLevelButton">Next Level</div>
+        </div>
         <div id="canvas"></div>
         <div id="lines">
             <div id="topLine"></div>
@@ -273,7 +288,6 @@
                     levels[i] = [item]; //变成数组成员再赋值给自己，从而变成嵌套数组，用于记录帧
                 });
                 drawFrame(false);
-                checkAdjacentBlocks(getControl());
             });
 
         function drawFrame(redrawBG = true) {
@@ -340,6 +354,7 @@
                     }
                 }
             });
+            checkAdjacentBlocks(getControl());
         }
 
         function updateRemainingSteps() {
@@ -357,10 +372,11 @@
         function check() {
             if (!Array.from(canvas.children).some((item, index) => (index - 64 * 2) % 4 == 0 && Math.floor((index - 64 * 2) / 64) % 4 == 0 && item.style.backgroundColor == colors.blocks.p[1])) {
                 if (level != levels.length - 1) {
-                    level++;
-                    drawFrame();
+                    document.getElementById('levelComplete').style.display = 'flex';
+                    document.getElementById('buttons').style.visibility = 'hidden';
                 } else {
-                    document.getElementById('level').innerText = '你已通关！';
+                    document.getElementById('victory').style.display = 'flex';
+                    document.getElementById('buttons').style.visibility = 'hidden';
                 }
                 return;
             }
@@ -1079,9 +1095,22 @@
             document.getElementById('gameover').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
         });
+        document.getElementById('nextLevelButton').addEventListener('click', () => {
+            level++;
+            drawFrame();
+            document.getElementById('levelComplete').style.display = 'none';
+            document.getElementById('buttons').style.visibility = 'visible';
+        });
+        document.getElementById('nextLevelButton').addEventListener('click', () => {
+            level = 0;
+            drawFrame();
+            document.getElementById('victory').style.display = 'none';
+            document.getElementById('buttons').style.visibility = 'visible';
+        });
     </script>
 </body>
 </html>
+
 
 
 
