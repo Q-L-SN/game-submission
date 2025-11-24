@@ -715,6 +715,41 @@
             }
         }
 
+        function setColor(control) {
+            for (let i = 0; i < control.h; i++) {
+                for (let j = 0; j < control.w; j++) {
+                    pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 1 + j) * 4).forEach((p, yindex) => {
+                        p.forEach((q, xindex) => {
+                            if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                switch (control.core.corner) {
+                                    case 'left-top':
+                                        if (i < control.core.h && j < control.core.w) {
+                                            canvas.children[q].style.backgroundColor = colors.otherCore;
+                                        }
+                                        break;
+                                    case 'left-bottom':
+                                        if (i >= control.h - control.core.h && j < control.core.w) {
+                                            canvas.children[q].style.backgroundColor = colors.otherCore;
+                                        }
+                                        break;
+                                    case 'right-top':
+                                        if (i < control.core.h && j >= control.w - control.core.w) {
+                                            canvas.children[q].style.backgroundColor = colors.otherCore;
+                                        }
+                                        break;
+                                    case 'right-bottom':
+                                        if (i >= control.h - control.core.h && j >= control.w - control.core.w) {
+                                            canvas.children[q].style.backgroundColor = colors.otherCore;
+                                        }
+                                        break;
+                                }
+                            }
+                        });
+                    });
+                }
+            }
+        }
+
         function up() {
             let control = getControl();
             if ((control.core.corner == 'left-top' || control.core.corner == 'right-top') && control.h != control.core.h) {
@@ -785,6 +820,7 @@
                         });
                     }
                 }
+                setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].topTarget).type;
                 control = getControl();
@@ -862,6 +898,7 @@
                         });
                     }
                 }
+                setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].bottomTarget).type;
                 control = getControl();
@@ -939,6 +976,7 @@
                         });
                     }
                 }
+                setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].leftTarget).type;
                 control = getControl();
@@ -1016,6 +1054,7 @@
                         });
                     }
                 }
+                setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].rightTarget).type;
                 control = getControl();
@@ -1112,5 +1151,6 @@
     </script>
 </body>
 </html>
+
 
 
