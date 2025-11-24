@@ -130,6 +130,10 @@
         .line {
             position: absolute;
             background: rgba(0,0,0,.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            mask-image: radial-gradient(100% 100% at 50% 50%, #000 75%, transparent);
+            -webkit-mask-image: radial-gradient(100% 100% at 50% 50%, #000 75%, transparent);
         }
         .line.horizontal {
             left: 0;
@@ -1147,6 +1151,7 @@
     </script>
 </body>
 </html>
+
 
 
 
