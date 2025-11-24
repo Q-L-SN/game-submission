@@ -787,8 +787,8 @@
                     });
                 }
             } else if (levels[level][0].topTarget) {
-                updateRemainingSteps();
-                control = getControl();
+                updateRemainingSteps();  //#1
+                control = getControl();  //#2
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].topTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -1159,6 +1159,7 @@
     </script>
 </body>
 </html>
+
 
 
 
