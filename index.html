@@ -1096,6 +1096,7 @@
             document.getElementById('buttons').style.visibility = 'visible';
         });
         document.getElementById('nextLevelButton').addEventListener('click', () => {
+            levels[level] = [levels[level].at(-1)];
             level++;
             drawFrame();
             document.getElementById('levelComplete').style.display = 'none';
@@ -1103,6 +1104,7 @@
         });
         document.getElementById('replayButton').addEventListener('click', () => {
             level = 0;
+            levels[level] = [levels[level].at(-1)];
             drawFrame();
             document.getElementById('victory').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
@@ -1110,4 +1112,5 @@
     </script>
 </body>
 </html>
+
 
