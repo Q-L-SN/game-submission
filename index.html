@@ -1067,6 +1067,9 @@
 
         document.addEventListener('keydown', (e) => {
             if (document.getElementById('buttons').style.visibility == 'hidden') {
+                if (e.key == 'Enter') {
+                    Array.from(document.querySelectorAll('.filled')).find(item => item.style.display == 'flex').children.querySelector('div').click();
+                }
                 return;
             }
             switch (e.key) {
@@ -1154,6 +1157,7 @@
     </script>
 </body>
 </html>
+
 
 
 
