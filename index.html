@@ -1148,8 +1148,8 @@
             document.getElementById('buttons').style.visibility = 'visible';
         });
         document.getElementById('replayButton').addEventListener('click', () => {
-            level = 0;
             levels[level] = [levels[level].at(-1)];
+            level = 0;
             drawFrame();
             document.getElementById('victory').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
@@ -1157,6 +1157,7 @@
     </script>
 </body>
 </html>
+
 
 
 
