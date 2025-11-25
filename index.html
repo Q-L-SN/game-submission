@@ -394,27 +394,20 @@
                     for (let j = 0; j < control.w; j++) {
                         let color = canvas.children[((control.y - 1 - i) * 4 + 2) * 64 + (control.x - 1 + j) * 4]?.style.backgroundColor;
                         if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
-                            if (i > 1) {
-                                if (color != c) {
-                                    if (flag1) {
-                                        return null;
-                                    }
-                                    flag2 = true;
-                                } else {
-                                    if (flag2) {
-                                        return null;
-                                    }
-                                    flag1 = true;
-                                }
-                            } else {
+                            if (color != c) {
                                 if (flag1) {
-                                    if (color != c) {
-                                        return null;
-                                    }
-                                } else {
+                                    return null;
+                                }
+                                if (i == 1) {
                                     c = color;
                                     flag1 = true;
                                 }
+                                flag2 = true;
+                            } else {
+                                if (flag2) {
+                                    return null;
+                                }
+                                flag1 = true;
                             }
                         }
                     }
@@ -466,31 +459,28 @@
             levels[level][0].bottomTarget = (() => {
                 let c;
                 for (let i = 1; true; i++) {
-                    let flag = false;
+                    let flag1, flag2 = false;
                     for (let j = 0; j < control.w; j++) {
                         let color = canvas.children[((control.y - 2 + control.h + i) * 4 + 2) * 64 + (control.x - 1 + j) * 4]?.style.backgroundColor;
                         if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
-                            if (i > 1) {
-                                if (color != c) {
-                                    if (flag) {
-                                        return null;
-                                    }
-                                } else {
-                                    flag = true;
+                            if (color != c) {
+                                if (flag1) {
+                                    return null;
                                 }
-                            } else {
-                                if (flag) {
-                                    if (color != c) {
-                                        return null;
-                                    }
-                                } else {
+                                if (i == 1) {
                                     c = color;
-                                    flag = true;
+                                    flag1 = true;
                                 }
+                                flag2 = true;
+                            } else {
+                                if (flag2) {
+                                    return null;
+                                }
+                                flag1 = true;
                             }
                         }
                     }
-                    if (!flag) {
+                    if (!flag1) {
                         const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == c);
                         if (i > 1 && block.x >= control.x && block.x + block.w - 1 <= control.x + control.w - 1) {
                             return c;
@@ -538,31 +528,28 @@
             levels[level][0].leftTarget = (() => {
                 let c;
                 for (let i = 1; true; i++) {
-                    let flag = false;
+                    let flag1, flag2 = false;
                     for (let j = 0; j < control.h; j++) {
                         let color = canvas.children[((control.y - 1 + j) * 4 + 2) * 64 + (control.x - 1 - i) * 4]?.style.backgroundColor;
                         if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
-                            if (i > 1) {
-                                if (color != c) {
-                                    if (flag) {
-                                        return null;
-                                    }
-                                } else {
-                                    flag = true;
+                            if (color != c) {
+                                if (flag1) {
+                                    return null;
                                 }
-                            } else {
-                                if (flag) {
-                                    if (color != c) {
-                                        return null;
-                                    }
-                                } else {
+                                if (i == 1) {
                                     c = color;
-                                    flag = true;
+                                    flag1 = true;
                                 }
+                                flag2 = true;
+                            } else {
+                                if (flag2) {
+                                    return null;
+                                }
+                                flag1 = true;
                             }
                         }
                     }
-                    if (!flag) {
+                    if (!flag1) {
                         const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == c);
                         if (i > 1 && block.y >= control.y && block.y + block.h - 1 <= control.y + control.h - 1) {
                             return c;
@@ -610,31 +597,28 @@
             levels[level][0].rightTarget = (() => {
                 let c;
                 for (let i = 1; true; i++) {
-                    let flag = false;
+                    let flag1, flag2 = false;
                     for (let j = 0; j < control.h; j++) {
                         let color = canvas.children[((control.y - 1 + j) * 4 + 2) * 64 + (control.x - 2 + control.w + i) * 4]?.style.backgroundColor;
                         if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
-                            if (i > 1) {
-                                if (color != c) {
-                                    if (flag) {
-                                        return null;
-                                    }
-                                } else {
-                                    flag = true;
+                            if (color != c) {
+                                if (flag1) {
+                                    return null;
                                 }
-                            } else {
-                                if (flag) {
-                                    if (color != c) {
-                                        return null;
-                                    }
-                                } else {
+                                if (i == 1) {
                                     c = color;
-                                    flag = true;
+                                    flag1 = true;
                                 }
+                                flag2 = true;
+                            } else {
+                                if (flag2) {
+                                    return null;
+                                }
+                                flag1 = true;
                             }
                         }
                     }
-                    if (!flag) {
+                    if (!flag1) {
                         const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == c);
                         if (i > 1 && block.y >= control.y && block.y + block.h - 1 <= control.y + control.h - 1) {
                             return c;
@@ -1166,4 +1150,5 @@
     </script>
 </body>
 </html>
+
 
