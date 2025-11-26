@@ -1151,8 +1151,9 @@
         });
         document.getElementById('undo').addEventListener('click', () => {
             if (levels[level].length != 1) {
+                levels[level][1].remainingSteps = levels[level][0].remainingSteps;
                 levels[level].shift();
-                levels[level][0].remainingSteps -= 2;
+                levels[level][0].remainingSteps--;
                 drawFrame();
                 check();
             }
@@ -1184,3 +1185,4 @@
     </script>
 </body>
 </html>
+
