@@ -1206,6 +1206,25 @@
                 document.getElementById('toggleLines').innerText = 'Show Lines';
             }
         });
+        document.getElementById('previousLevel').addEventListener('click', () => {
+            if (level == 0) {
+                alert('You’re already on the first level.');
+                return;
+            }
+            levels[level] = [levels[level].at(-1)];
+            level--;
+            drawFrame(true);
+        });
+        document.getElementById('nextLevel').addEventListener('click', () => {
+            if (level == levels.length - 1) {
+                alert('You’re already on the last level.');
+                return;
+            }
+            levels[level] = [levels[level].at(-1)];
+            level++;
+            drawFrame(true);
+        });
     </script>
 </body>
 </html>
+
