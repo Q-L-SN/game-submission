@@ -312,7 +312,7 @@
 
         function drawFrame(firstStartup = false) {
             if (firstStartup) {
-                item.remainingSteps = item.maxSteps; //启动关卡时配置步数
+                levels[level][0].remainingSteps = levels[level][0].maxSteps; //启动关卡时配置步数
             }
             Array.from(canvas.children).forEach(item => {
                 item.style.backgroundColor = colors.midBG;
@@ -1188,6 +1188,7 @@
     </script>
 </body>
 </html>
+
 
 
 
