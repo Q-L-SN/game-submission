@@ -1194,16 +1194,17 @@
         });
         document.getElementById('toggleLines').addEventListener('click', () => {
             if (document.getElementById('lines').style.display == 'none') {
-                document.getElementById('lines').style.display == 'block';
+                document.getElementById('lines').style.display = 'block';
                 document.getElementById('toggleLines').innerText = 'Hide Lines';
             } else {
-                document.getElementById('lines').style.display == 'none';
+                document.getElementById('lines').style.display = 'none';
                 document.getElementById('toggleLines').innerText = 'Show Lines';
             }
         });
     </script>
 </body>
 </html>
+
 
 
 
