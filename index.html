@@ -1194,7 +1194,6 @@
         });
         var hasShownNotification = false;
         document.getElementById('toggleLines').addEventListener('click', () => {
-            let hasShownNotification = false;
             if (getComputedStyle(document.getElementById('lines')).display === 'none') {
                 document.getElementById('lines').style.display = 'block';
                 document.getElementById('toggleLines').innerText = 'Hide Lines';
