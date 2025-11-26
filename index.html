@@ -12,17 +12,24 @@
             --pixel-width: 7.4px;
             --line-width: 0.3px;
         }
-        #menu {
+        #leftTopButtons, #rightTopButtons {
             position: absolute;
-            left: 0;
-            top: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            top: 10px;
         }
-        #menu div {
-            display: inline-block;
+        #leftTopButtons {
+            left: 10px;
+        }
+        #rightTopButtons {
+            right: 10px;
+        }
+        #leftTopButtons div, #rightTopButtons div {
             color: white;
         }
-        #menu div:hover {
-            color: #444444;
+        #leftTopButtons div:hover, #rightTopButtons div:hover {
+            color: #888888;
         }
         body {
             margin: 0;
@@ -189,9 +196,11 @@
     </style>
 </head>
 <body>
-    <div id="menu">
+    <div id="leftTopButtons">
         <div id="previousLevel">Previous Level</div>
         <div id="nextLevel">Next Level</div>
+    </div>
+    <div id="rightTopButtons">
         <div id="toggleLines">Show Lines</div>
     </div>
     <span id="level"></span>
@@ -1188,6 +1197,7 @@
     </script>
 </body>
 </html>
+
 
 
 
