@@ -1193,7 +1193,12 @@
             document.getElementById('buttons').style.visibility = 'visible';
         });
         document.getElementById('toggleLines').addEventListener('click', () => {
+            let hasShownNotification = false;
             if (document.getElementById('lines').style.display == 'none') {
+                if (!hasShownNotification) {
+                    alert('On some devices, the lines may not be displayed evenly.');
+                    (() => { hasShownNotification = true })();
+                }
                 document.getElementById('lines').style.display = 'block';
                 document.getElementById('toggleLines').innerText = 'Hide Lines';
             } else {
@@ -1204,6 +1209,7 @@
     </script>
 </body>
 </html>
+
 
 
 
