@@ -1107,6 +1107,10 @@
                     right();
                     document.getElementById('right').classList.add('hover');
                     break;
+                case ' ':
+                    document.getElementById('undo').click();
+                    document.getElementById('undo').classList.add('hover');
+                    break;
             }
             check();
         });
@@ -1123,6 +1127,9 @@
                     break;
                 case 'ArrowRight':
                     document.getElementById('right').classList.remove('hover');
+                    break;
+                case ' ':
+                    document.getElementById('undo').classList.remove('hover');
                     break;
             }
         });
@@ -1177,15 +1184,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
