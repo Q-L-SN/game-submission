@@ -220,7 +220,7 @@
             <div id="left">←</div>
             <div id="right">→</div>
         </div>
-        <div id="undo">Undo</div>
+        <div id="undo">Space Bar</div>
         <div id="tryAgain">Try Again</div>
     </div>
     <script>
@@ -1145,7 +1145,9 @@
         document.getElementById('undo').addEventListener('click', () => {
             if (levels[level].length != 1) {
                 levels[level].shift();
+                levels[level][0].remainingSteps -= 2;
                 drawFrame();
+                check();
             }
         });
         document.getElementById('tryAgain').addEventListener('click', () => {
@@ -1175,6 +1177,7 @@
     </script>
 </body>
 </html>
+
 
 
 
