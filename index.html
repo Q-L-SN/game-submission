@@ -303,20 +303,20 @@
             .then(data => {
                 levels.push(...data);
                 levels.forEach((item, i) => {
-                    item.remainingSteps = item.maxSteps; //启动关卡时配置步数
                     item.blocks.sort((a, b) => (b.type == 'p') - (a.type == 'p')); //让p块到最前面去
                     item.underControl = 1; //初始化
                     levels[i] = [item]; //变成数组成员再赋值给自己，从而变成嵌套数组，用于记录帧
                 });
-                drawFrame(false);
+                drawFrame(true);
             });
 
-        function drawFrame(redrawBG = true) {
-            if (redrawBG) {
-                Array.from(canvas.children).forEach(item => {
-                    item.style.backgroundColor = colors.midBG;
-                });
+        function drawFrame(firstStartup = false) {
+            if (firstStartup) {
+                item.remainingSteps = item.maxSteps; //启动关卡时配置步数
             }
+            Array.from(canvas.children).forEach(item => {
+                item.style.backgroundColor = colors.midBG;
+            });
             document.getElementById('level').innerText = `LEVEL ${level + 1}/${levels.length}`;
             for (let i = 0; i < 64 * 2; i++) {
                 canvas.children[i].style.backgroundColor = colors.bilateralBG;
@@ -1163,30 +1163,31 @@
         });
         document.getElementById('tryAgain').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
-            drawFrame();
+            drawFrame(true);
         });
         document.getElementById('tryAgainButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
-            drawFrame();
+            drawFrame(true);
             document.getElementById('gameover').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
         });
         document.getElementById('nextLevelButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
             level++;
-            drawFrame();
+            drawFrame(true);
             document.getElementById('levelComplete').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
         });
         document.getElementById('replayButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
             level = 0;
-            drawFrame();
+            drawFrame(true);
             document.getElementById('victory').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
         });
     </script>
 </body>
 </html>
+
 
 
