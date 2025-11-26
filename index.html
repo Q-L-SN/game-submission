@@ -141,6 +141,7 @@
             background-color: #444444;
         }
         #lines {
+            display: none;
             position: absolute;
             top: 0;
             left: 0;
@@ -148,7 +149,6 @@
             height: 100%;
         }
         .line {
-            display: none;
             position: absolute;
             background: rgba(0,0,0,.4);
             backdrop-filter: blur(12px);
@@ -1192,9 +1192,19 @@
             document.getElementById('victory').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
         });
+        document.getElementById('toggleLines').addEventListener('click', () => {
+            if (document.getElementById('lines').style.display == 'none') {
+                document.getElementById('lines').style.display == 'block';
+                document.getElementById('toggleLines').innerText = 'Hide Lines';
+            } else {
+                document.getElementById('lines').style.display == 'none';
+                document.getElementById('toggleLines').innerText = 'Show Lines';
+            }
+        });
     </script>
 </body>
 </html>
+
 
 
 
