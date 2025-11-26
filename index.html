@@ -1192,17 +1192,16 @@
             document.getElementById('victory').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
         });
+        var hasShownNotification = false;
         document.getElementById('toggleLines').addEventListener('click', () => {
             let hasShownNotification = false;
             if (getComputedStyle(document.getElementById('lines')).display === 'none') {
                 document.getElementById('lines').style.display = 'block';
                 document.getElementById('toggleLines').innerText = 'Hide Lines';
-                (() => {
-                    if (!hasShownNotification) {
-                        alert('On some devices, the lines may not be displayed evenly.');
-                        hasShownNotification = true;
-                    }
-                })();
+                if (!hasShownNotification) {
+                    alert('On some devices, the lines may not be displayed evenly.');
+                    hasShownNotification = true;
+                }
             } else {
                 document.getElementById('lines').style.display = 'none';
                 document.getElementById('toggleLines').innerText = 'Show Lines';
@@ -1211,6 +1210,3 @@
     </script>
 </body>
 </html>
-
-
-
