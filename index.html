@@ -500,7 +500,6 @@
                         if ((index - 64 * 2) % 4 != 0 || Math.floor((index - 64 * 2) / 64) % 4 != 0) {
                             break;
                         }
-                        let color = canvas.children[]?.style.backgroundColor;
                         if ([1,2,3,4,5,6].some(item => colors.blocks[item] == color)) {
                             if (color != c) {
                                 if (flag1) {
@@ -1246,6 +1245,7 @@
     </script>
 </body>
 </html>
+
 
 
 
