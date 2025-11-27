@@ -403,15 +403,21 @@
                 if (level != levels.length - 1) {
                     document.getElementById('levelComplete').style.display = 'flex';
                     document.getElementById('buttons').style.visibility = 'hidden';
+                    document.getElementById('leftTopButtons').style.display = 'none';
+                    document.getElementById('rightTopButtons').style.display = 'none';
                 } else {
                     document.getElementById('victory').style.display = 'flex';
                     document.getElementById('buttons').style.visibility = 'hidden';
+                    document.getElementById('leftTopButtons').style.display = 'none';
+                    document.getElementById('rightTopButtons').style.display = 'none';
                 }
                 return;
             }
             if (levels[level][0].remainingSteps == 0) {
                 document.getElementById('gameover').style.display = 'flex';
                 document.getElementById('buttons').style.visibility = 'hidden';
+                document.getElementById('leftTopButtons').style.display = 'none';
+                document.getElementById('rightTopButtons').style.display = 'none';
             }
         }
 
@@ -1194,6 +1200,8 @@
             drawFrame(true);
             document.getElementById('gameover').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
+            document.getElementById('leftTopButtons').style.display = 'flex';
+            document.getElementById('rightTopButtons').style.display = 'flex';
         });
         document.getElementById('nextLevelButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
@@ -1201,6 +1209,8 @@
             drawFrame(true);
             document.getElementById('levelComplete').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
+            document.getElementById('leftTopButtons').style.display = 'flex';
+            document.getElementById('rightTopButtons').style.display = 'flex';
         });
         document.getElementById('replayButton').addEventListener('click', () => {
             levels[level] = [levels[level].at(-1)];
@@ -1208,6 +1218,8 @@
             drawFrame(true);
             document.getElementById('victory').style.display = 'none';
             document.getElementById('buttons').style.visibility = 'visible';
+            document.getElementById('leftTopButtons').style.display = 'flex';
+            document.getElementById('rightTopButtons').style.display = 'flex';
         });
         var hasShownNotification = false;
         document.getElementById('toggleLines').addEventListener('click', () => {
@@ -1244,6 +1256,7 @@
     </script>
 </body>
 </html>
+
 
 
 
