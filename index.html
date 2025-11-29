@@ -201,6 +201,7 @@
     </div>
     <div id="rightTopButtons">
         <div id="toggleLines">Show Lines</div>
+        <div id="randomLevel">Random Level</div>
     </div>
     <span id="level"></span>
     <div id="wrapper">
@@ -239,6 +240,128 @@
         const pixelCount = 64 * 64;
         var level = 0;
         const levels = [];
+        const gridWidth = 16;
+        const gridHeight = 15;
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function shuffle(array) {
+            const copied = [...array];
+            for (let i = copied.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copied[i], copied[j]] = [copied[j], copied[i]];
+            }
+            return copied;
+        }
+        function findFreePositions(w, h, occupied) {
+            const positions = [];
+            for (let y = 1; y <= gridHeight - h + 1; y++) {
+                for (let x = 1; x <= gridWidth - w + 1; x++) {
+                    let free = true;
+                    for (let i = 0; i < h; i++) {
+                        for (let j = 0; j < w; j++) {
+                            if (occupied[y - 1 + i][x - 1 + j]) {
+                                free = false;
+                                break;
+                            }
+                        }
+                        if (!free) {
+                            break;
+                        }
+                    }
+                    if (free) {
+                        positions.push({ x, y });
+                    }
+                }
+            }
+            return positions;
+        }
+        function generateBlock(type, occupied, options = {}) {
+            const { customRange, allowOverlap = false } = options;
+            const sizeRange = customRange ?? (type == 'p' ? { w: [2, 6], h: [2, 6] } : { w: [1, 4], h: [1, 4] });
+            const sizes = [];
+            for (let w = sizeRange.w[0]; w <= sizeRange.w[1]; w++) {
+                for (let h = sizeRange.h[0]; h <= sizeRange.h[1]; h++) {
+                    sizes.push({ w, h });
+                }
+            }
+            while (sizes.length) {
+                const { w, h } = sizes.splice(randomInt(0, sizes.length - 1), 1)[0];
+                const positions = allowOverlap ? [] : findFreePositions(w, h, occupied);
+                if (!allowOverlap && !positions.length) {
+                    continue;
+                }
+                const chosenPosition = allowOverlap ? null : positions[randomInt(0, positions.length - 1)];
+                const x = allowOverlap ? randomInt(1, gridWidth - w + 1) : chosenPosition?.x;
+                const y = allowOverlap ? randomInt(1, gridHeight - h + 1) : chosenPosition?.y;
+                if (!allowOverlap) {
+                    for (let i = 0; i < h; i++) {
+                        for (let j = 0; j < w; j++) {
+                            occupied[y - 1 + i][x - 1 + j] = true;
+                        }
+                    }
+                }
+                const core = type == 'p' ? undefined : {
+                    corner: ['left-top', 'right-top', 'left-bottom', 'right-bottom'][randomInt(0, 3)],
+                    h: randomInt(1, h),
+                    w: randomInt(1, w)
+                };
+                return {
+                    type: type.toString(),
+                    x,
+                    y,
+                    h,
+                    w,
+                    core
+                };
+            }
+            return null;
+        }
+        function generateRandomLevel() {
+            while (true) {
+                const occupied = Array.from({ length: gridHeight }, () => Array(gridWidth).fill(false));
+                const blocks = [];
+                const normalCount = randomInt(4, 6);
+                const pCount = randomInt(1, 3);
+                const normalTypesPool = shuffle([2, 3, 4, 5, 6]);
+                const selectedNormalTypes = [1, ...normalTypesPool.slice(0, normalCount - 1)];
+
+                const addBlock = (type, options) => {
+                    let block = generateBlock(type, occupied, options);
+                    if (!block) {
+                        block = generateBlock(type, occupied, { ...options, customRange: { w: [1, 2], h: [1, 2] } });
+                    }
+                    if (block) {
+                        blocks.push(block);
+                        return true;
+                    }
+                    return false;
+                };
+
+                for (let i = 0; i < selectedNormalTypes.length; i++) {
+                    if (!addBlock(selectedNormalTypes[i])) {
+                        break;
+                    }
+                }
+
+                if (blocks.filter(item => item.type != 'p').length < selectedNormalTypes.length) {
+                    continue;
+                }
+
+                for (let i = 0; i < pCount; i++) {
+                    addBlock('p', { allowOverlap: true });
+                }
+
+                if (blocks.filter(item => item.type == 'p').length < pCount) {
+                    continue;
+                }
+
+                return {
+                    maxSteps: randomInt(60, 90),
+                    blocks
+                };
+            }
+        }
         function pixels(index) {
             return [
                 [
@@ -1252,6 +1375,20 @@
             levels[level] = [levels[level].at(-1)];
             level++;
             drawFrame(true);
+        });
+        document.getElementById('randomLevel').addEventListener('click', () => {
+            const newLevel = generateRandomLevel();
+            newLevel.blocks.sort((a, b) => (b.type == 'p') - (a.type == 'p'));
+            newLevel.underControl = 1;
+            levels.push([newLevel]);
+            level = levels.length - 1;
+            drawFrame(true);
+            document.getElementById('gameover').style.display = 'none';
+            document.getElementById('victory').style.display = 'none';
+            document.getElementById('levelComplete').style.display = 'none';
+            document.getElementById('buttons').style.visibility = 'visible';
+            document.getElementById('leftTopButtons').style.display = 'flex';
+            document.getElementById('rightTopButtons').style.display = 'flex';
         });
     </script>
 </body>
