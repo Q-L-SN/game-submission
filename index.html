@@ -311,6 +311,10 @@
             .then(data => {
                 levels.push(...data);
                 levels.forEach((item, i) => {
+                    item.blocks = item.blocks.map(block => ({
+                        disposable: false,
+                        ...block
+                    }));
                     item.blocks.sort((a, b) => (b.type == 'p') - (a.type == 'p')); //让p块到最前面去
                     item.underControl = 1; //初始化
                     levels[i] = [item]; //变成数组成员再赋值给自己，从而变成嵌套数组，用于记录帧
@@ -396,6 +400,16 @@
 
         function getControl() {
             return levels[level][0].blocks.find(item => item.type == levels[level][0].underControl);
+        }
+
+        function disposeBlockIfNeeded(previousControlType) {
+            const index = levels[level][0].blocks.findIndex(item => item.type == previousControlType);
+            if (index != -1 && levels[level][0].blocks[index].disposable) {
+                levels[level][0].blocks.splice(index, 1);
+                drawFrame();
+                return true;
+            }
+            return false;
         }
 
         function check() {
@@ -835,6 +849,7 @@
             } else if (levels[level][0].topTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].topTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -871,6 +886,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].topTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
@@ -915,6 +931,7 @@
             } else if (levels[level][0].bottomTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].bottomTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -951,6 +968,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].bottomTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
@@ -995,6 +1013,7 @@
             } else if (levels[level][0].leftTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].leftTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -1031,6 +1050,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].leftTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
@@ -1075,6 +1095,7 @@
             } else if (levels[level][0].rightTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].rightTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
@@ -1111,6 +1132,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].rightTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
