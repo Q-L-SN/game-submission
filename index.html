@@ -267,6 +267,13 @@
                 ]
             ];
         }
+
+        function isCorePixel(block, xindex, yindex) {
+            if (block.disposable) {
+                return (xindex == 1 && yindex == 1) || (xindex == 2 && yindex == 2);
+            }
+            return (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2);
+        }
         const colors = Object.freeze({ //常量 不仅引用不可变
             blocks: Object.freeze({
                 1: 'deeppink',
@@ -311,6 +318,10 @@
             .then(data => {
                 levels.push(...data);
                 levels.forEach((item, i) => {
+                    item.blocks = item.blocks.map(block => ({
+                        disposable: false,
+                        ...block
+                    }));
                     item.blocks.sort((a, b) => (b.type == 'p') - (a.type == 'p')); //让p块到最前面去
                     item.underControl = 1; //初始化
                     levels[i] = [item]; //变成数组成员再赋值给自己，从而变成嵌套数组，用于记录帧
@@ -347,25 +358,26 @@
                         let index = ((item.y - 1 + i) * 4 + 2) * 64 + ((item.x - 1 + j) * 4);
                         pixels(index).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
+                                const isCore = isCorePixel(item, xindex, yindex);
                                 canvas.children[q].style.backgroundColor = (() => {
                                     switch (item.core?.corner) {
                                         case 'left-top':
-                                            if (i < item.core.h && j < item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (i < item.core.h && j < item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'left-bottom':
-                                            if (item.h - i <= item.core.h && j < item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (item.h - i <= item.core.h && j < item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-top':
-                                            if (i < item.core.h && item.w - j <= item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (i < item.core.h && item.w - j <= item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-bottom':
-                                            if (item.h - i <= item.core.h && item.w - j <= item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (item.h - i <= item.core.h && item.w - j <= item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
@@ -396,6 +408,16 @@
 
         function getControl() {
             return levels[level][0].blocks.find(item => item.type == levels[level][0].underControl);
+        }
+
+        function disposeBlockIfNeeded(previousControlType) {
+            const index = levels[level][0].blocks.findIndex(item => item.type == previousControlType);
+            if (index != -1 && levels[level][0].blocks[index].disposable) {
+                levels[level][0].blocks.splice(index, 1);
+                drawFrame();
+                return true;
+            }
+            return false;
         }
 
         function check() {
@@ -467,7 +489,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -541,7 +563,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -615,7 +637,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -689,7 +711,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -729,7 +751,7 @@
                         for (let j = 0; j < block.w; j++) {
                             pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                                 p.forEach((q, xindex) => {
-                                    if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                    if (isCorePixel(block, xindex, yindex)) {
                                         switch (block.core.corner) {
                                             case 'left-top':
                                                 if (i < block.core.h && j < block.core.w) {
@@ -766,7 +788,7 @@
                 for (let j = 0; j < control.w; j++) {
                     pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 1 + j) * 4).forEach((p, yindex) => {
                         p.forEach((q, xindex) => {
-                            if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                            if (isCorePixel(control, xindex, yindex)) {
                                 switch (control.core.corner) {
                                     case 'left-top':
                                         if (i < control.core.h && j < control.core.w) {
@@ -835,12 +857,13 @@
             } else if (levels[level][0].topTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].topTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -871,6 +894,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].topTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
@@ -915,12 +939,13 @@
             } else if (levels[level][0].bottomTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].bottomTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -951,6 +976,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].bottomTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
@@ -995,12 +1021,13 @@
             } else if (levels[level][0].leftTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].leftTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -1031,6 +1058,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].leftTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
@@ -1075,12 +1103,13 @@
             } else if (levels[level][0].rightTarget) {
                 updateRemainingSteps();
                 control = getControl();
+                const previousControlType = control.type;
                 const block = levels[level][0].blocks.find(item => colors.blocks[item.type] == levels[level][0].rightTarget);
                 for (let i = 0; i < block.h; i++) {
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -1111,6 +1140,7 @@
                 setColor(control);
                 levels[level][0].underControl = levels[level][0].blocks
                     .find(item => [1, 2, 3, 4, 5, 6].some(_item => item.type == _item) && colors.blocks[item.type] == levels[level][0].rightTarget).type;
+                disposeBlockIfNeeded(previousControlType);
                 control = getControl();
             }
             checkAdjacentBlocks(control);
