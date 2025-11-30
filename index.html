@@ -267,6 +267,13 @@
                 ]
             ];
         }
+
+        function isCorePixel(block, xindex, yindex) {
+            if (block.disposable) {
+                return (xindex == 1 && yindex == 1) || (xindex == 2 && yindex == 2);
+            }
+            return (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2);
+        }
         const colors = Object.freeze({ //常量 不仅引用不可变
             blocks: Object.freeze({
                 1: 'deeppink',
@@ -351,28 +358,26 @@
                         let index = ((item.y - 1 + i) * 4 + 2) * 64 + ((item.x - 1 + j) * 4);
                         pixels(index).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                const isCorePixel = item.disposable
-                                    ? (xindex == 1 && yindex == 1) || (xindex == 2 && yindex == 2)
-                                    : (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2);
+                                const isCore = isCorePixel(item, xindex, yindex);
                                 canvas.children[q].style.backgroundColor = (() => {
                                     switch (item.core?.corner) {
                                         case 'left-top':
-                                            if (i < item.core.h && j < item.core.w && isCorePixel) {
+                                            if (i < item.core.h && j < item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'left-bottom':
-                                            if (item.h - i <= item.core.h && j < item.core.w && isCorePixel) {
+                                            if (item.h - i <= item.core.h && j < item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-top':
-                                            if (i < item.core.h && item.w - j <= item.core.w && isCorePixel) {
+                                            if (i < item.core.h && item.w - j <= item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-bottom':
-                                            if (item.h - i <= item.core.h && item.w - j <= item.core.w && isCorePixel) {
+                                            if (item.h - i <= item.core.h && item.w - j <= item.core.w && isCore) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
@@ -484,7 +489,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -558,7 +563,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -632,7 +637,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -706,7 +711,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -746,7 +751,7 @@
                         for (let j = 0; j < block.w; j++) {
                             pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                                 p.forEach((q, xindex) => {
-                                    if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                    if (isCorePixel(block, xindex, yindex)) {
                                         switch (block.core.corner) {
                                             case 'left-top':
                                                 if (i < block.core.h && j < block.core.w) {
@@ -783,7 +788,7 @@
                 for (let j = 0; j < control.w; j++) {
                     pixels(((control.y - 1 + i) * 4 + 2) * 64 + (control.x - 1 + j) * 4).forEach((p, yindex) => {
                         p.forEach((q, xindex) => {
-                            if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                            if (isCorePixel(control, xindex, yindex)) {
                                 switch (control.core.corner) {
                                     case 'left-top':
                                         if (i < control.core.h && j < control.core.w) {
@@ -858,7 +863,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -940,7 +945,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -1022,7 +1027,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
@@ -1104,7 +1109,7 @@
                     for (let j = 0; j < block.w; j++) {
                         pixels(((block.y - 1 + i) * 4 + 2) * 64 + (block.x - 1 + j) * 4).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
-                                if ((yindex == 1 || yindex == 2) && (xindex == 1 || xindex == 2)) {
+                                if (isCorePixel(block, xindex, yindex)) {
                                     switch (block.core.corner) {
                                         case 'left-top':
                                             if (i < block.core.h && j < block.core.w) {
