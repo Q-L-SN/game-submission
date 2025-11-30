@@ -192,7 +192,8 @@
                     "corner": "left-top",
                     "h": 1,
                     "w": 1
-                }
+                },
+                "disposable": true
             },
             {
                 "type": "p",
@@ -204,6 +205,7 @@
         ]
     }
 ]
+
 
 
 
