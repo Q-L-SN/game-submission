@@ -351,25 +351,28 @@
                         let index = ((item.y - 1 + i) * 4 + 2) * 64 + ((item.x - 1 + j) * 4);
                         pixels(index).forEach((p, yindex) => {
                             p.forEach((q, xindex) => {
+                                const isCorePixel = item.disposable
+                                    ? (xindex == 1 && yindex == 1) || (xindex == 2 && yindex == 2)
+                                    : (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2);
                                 canvas.children[q].style.backgroundColor = (() => {
                                     switch (item.core?.corner) {
                                         case 'left-top':
-                                            if (i < item.core.h && j < item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (i < item.core.h && j < item.core.w && isCorePixel) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'left-bottom':
-                                            if (item.h - i <= item.core.h && j < item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (item.h - i <= item.core.h && j < item.core.w && isCorePixel) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-top':
-                                            if (i < item.core.h && item.w - j <= item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (i < item.core.h && item.w - j <= item.core.w && isCorePixel) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
                                         case 'right-bottom':
-                                            if (item.h - i <= item.core.h && item.w - j <= item.core.w && (xindex == 1 || xindex == 2) && (yindex == 1 || yindex == 2)) {
+                                            if (item.h - i <= item.core.h && item.w - j <= item.core.w && isCorePixel) {
                                                 return item.type == levels[level][0].underControl ? colors.controlledCore : colors.otherCore;
                                             }
                                             break;
