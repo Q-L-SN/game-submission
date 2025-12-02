@@ -156,14 +156,63 @@
         ]
     },
     {
-        "maxSteps": 80,
+        "maxSteps": 120,
         "blocks": [
             {
                 "type": "1",
                 "x": 4,
-                "y": 6,
+                "y": 8,
+                "h": 2,
+                "w": 2,
+                "core": {
+                    "corner": "left-top",
+                    "h": 2,
+                    "w": 1
+                }
+            },
+            {
+                "type": "2",
+                "x": 9,
+                "y": 12,
                 "h": 1,
-                "w": 4,
+                "w": 2,
+                "core": {
+                    "corner": "right-top",
+                    "h": 1,
+                    "w": 2
+                },
+                "disposable": true
+            },
+            {
+                "type": "3",
+                "x": 8,
+                "y": 5,
+                "h": 2,
+                "w": 5,
+                "core": {
+                    "corner": "right-top",
+                    "h": 2,
+                    "w": 1
+                }
+            },
+            {
+                "type": "5",
+                "x": 8,
+                "y": 10,
+                "h": 2,
+                "w": 1,
+                "core": {
+                    "corner": "right-top",
+                    "h": 2,
+                    "w": 1
+                }
+            },
+            {
+                "type": "6",
+                "x": 4,
+                "y": 5,
+                "h": 1,
+                "w": 1,
                 "core": {
                     "corner": "right-top",
                     "h": 1,
@@ -171,40 +220,23 @@
                 }
             },
             {
-                "type": "2",
-                "x": 7,
-                "y": 11,
-                "h": 3,
-                "w": 2,
-                "core": {
-                    "corner": "left-bottom",
-                    "h": 1,
-                    "w": 2
-                }
-            },
-            {
-                "type": "3",
-                "x": 5,
-                "y": 11,
+                "type": "p",
+                "x": 8,
+                "y": 4,
                 "h": 1,
-                "w": 1,
-                "core": {
-                    "corner": "left-top",
-                    "h": 1,
-                    "w": 1
-                },
-                "disposable": true
+                "w": 4
             },
             {
                 "type": "p",
-                "x": 5,
-                "y": 8,
-                "h": 3,
-                "w": 6
+                "x": 4,
+                "y": 12,
+                "h": 1,
+                "w": 1
             }
         ]
     }
 ]
+
 
 
 
