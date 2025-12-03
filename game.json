@@ -263,7 +263,7 @@
                 "h": 2,
                 "w": 2,
                 "core": {
-                    "corner": "left-top",
+                    "corner": "left-bottom",
                     "h": 1,
                     "w": 2
                 }
@@ -278,6 +278,7 @@
         ]
     }
 ]
+
 
 
 
