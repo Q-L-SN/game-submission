@@ -245,6 +245,19 @@
                 "disposable": true
             },
             {
+                "type": "4",
+                "x": 10,
+                "y": 9,
+                "h": 1,
+                "w": 5,
+                "core": {
+                    "corner": "right-bottom",
+                    "h": 1,
+                    "w": 2
+                },
+                "disposable": true
+            },
+            {
                 "type": "3",
                 "x": 8,
                 "y": 5,
@@ -258,7 +271,7 @@
                 "disposable": true
             },
             {
-                "type": "6",
+                "type": "2",
                 "x": 11,
                 "y": 7,
                 "h": 2,
@@ -279,6 +292,7 @@
         ]
     }
 ]
+
 
 
 
