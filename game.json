@@ -233,12 +233,12 @@
             },
             {
                 "type": "5",
-                "x": 9,
+                "x": 8,
                 "y": 9,
                 "h": 2,
                 "w": 2,
                 "core": {
-                    "corner": "left-bottom",
+                    "corner": "right-bottom",
                     "h": 1,
                     "w": 1
                 },
