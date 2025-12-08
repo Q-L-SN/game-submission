@@ -1,6 +1,6 @@
 [
     {
-        "maxSteps": 35,
+        "maxSteps": 25,
         "blocks": [
             {
                 "type": "1",
@@ -24,7 +24,7 @@
         ]
     },
     {
-        "maxSteps": 60,
+        "maxSteps": 40,
         "blocks": [
             {
                 "type": "1",
@@ -60,7 +60,7 @@
         ]
     },
     {
-        "maxSteps": 80,
+        "maxSteps": 60,
         "blocks": [
             {
                 "type": "1",
@@ -108,7 +108,7 @@
         ]
     },
     {
-        "maxSteps": 80,
+        "maxSteps": 70,
         "blocks": [
             {
                 "type": "1",
@@ -156,7 +156,7 @@
         ]
     },
     {
-        "maxSteps": 120,
+        "maxSteps": 95,
         "blocks": [
             {
                 "type": "1",
@@ -217,7 +217,69 @@
         ]
     },
     {
-        "maxSteps": 160,
+        "maxSteps": 105,
+        "blocks": [
+            {
+                "type": "1",
+                "x": 5,
+                "y": 11,
+                "h": 1,
+                "w": 5,
+                "core": {
+                    "corner": "left-top",
+                    "h": 1,
+                    "w": 1
+                }
+            },
+            {
+                "type": "5",
+                "x": 8,
+                "y": 9,
+                "h": 2,
+                "w": 2,
+                "core": {
+                    "corner": "right-bottom",
+                    "h": 1,
+                    "w": 1
+                },
+                "disposable": true
+            },
+            {
+                "type": "4",
+                "x": 11,
+                "y": 10,
+                "h": 1,
+                "w": 4,
+                "core": {
+                    "corner": "right-bottom",
+                    "h": 1,
+                    "w": 2
+                },
+                "disposable": true
+            },
+            {
+                "type": "3",
+                "x": 8,
+                "y": 5,
+                "h": 3,
+                "w": 3,
+                "core": {
+                    "corner": "right-top",
+                    "h": 2,
+                    "w": 3
+                }
+            },
+            {
+                "type": "p",
+                "x": 10,
+                "y": 9,
+                "h": 4,
+                "w": 3
+            }
+        ]
+    },
+    {
+        "maxSteps": 130,
         "blocks": [
             {
                 "type": "1",
@@ -279,5 +341,3 @@
         ]
     }
 ]
-
-
