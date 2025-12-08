@@ -60,7 +60,7 @@
         ]
     },
     {
-        "maxSteps": 60,
+        "maxSteps": 55,
         "blocks": [
             {
                 "type": "1",
@@ -108,7 +108,7 @@
         ]
     },
     {
-        "maxSteps": 70,
+        "maxSteps": 68,
         "blocks": [
             {
                 "type": "1",
@@ -156,7 +156,7 @@
         ]
     },
     {
-        "maxSteps": 95,
+        "maxSteps": 90,
         "blocks": [
             {
                 "type": "1",
@@ -341,4 +341,5 @@
         ]
     }
 ]
+
 
