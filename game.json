@@ -383,8 +383,7 @@
                     "corner": "left-top",
                     "h": 1,
                     "w": 2
-                },
-                "disposable": true
+                }
             },
             {
                 "type": "4",
@@ -452,4 +451,5 @@
         ]
     }
 ]
+
 
