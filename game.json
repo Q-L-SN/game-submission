@@ -283,52 +283,63 @@
         "blocks": [
             {
                 "type": "1",
-                "x": 5,
-                "y": 11,
-                "h": 1,
+                "x": 6,
+                "y": 6,
+                "h": 2,
                 "w": 5,
                 "core": {
                     "corner": "left-top",
                     "h": 1,
-                    "w": 1
+                    "w": 5
                 }
             },
             {
-                "type": "5",
-                "x": 8,
-                "y": 9,
-                "h": 2,
-                "w": 2,
-                "core": {
-                    "corner": "right-bottom",
-                    "h": 1,
-                    "w": 1
-                },
-                "disposable": true
-            },
-            {
-                "type": "4",
-                "x": 11,
-                "y": 10,
+                "type": "2",
+                "x": 3,
+                "y": 4,
                 "h": 1,
-                "w": 4,
+                "w": 3,
                 "core": {
-                    "corner": "right-bottom",
+                    "corner": "left-bottom",
                     "h": 1,
                     "w": 2
+                }
+            },
+            {
+                "type": "6",
+                "x": 7,
+                "y": 8,
+                "h": 2,
+                "w": 3,
+                "core": {
+                    "corner": "left-bottom",
+                    "h": 2,
+                    "w": 1
                 },
                 "disposable": true
             },
             {
                 "type": "3",
                 "x": 8,
-                "y": 5,
-                "h": 3,
-                "w": 3,
+                "y": 10,
+                "h": 2,
+                "w": 1,
                 "core": {
-                    "corner": "right-top",
-                    "h": 2,
-                    "w": 3
+                    "corner": "right-bottom",
+                    "h": 1,
+                    "w": 1
+                }
+            },
+            {
+                "type": "5",
+                "x": 12,
+                "y": 12,
+                "h": 1,
+                "w": 1,
+                "core": {
+                    "corner": "right-bottom",
+                    "h": 1,
+                    "w": 1
                 }
             },
             {
@@ -337,9 +348,94 @@
                 "y": 9,
                 "h": 4,
                 "w": 3
+            },
+            {
+                "type": "p",
+                "x": 3,
+                "y": 5,
+                "h": 4,
+                "w": 2
+            }
+        ]
+    },
+    {
+        "maxSteps": 155,
+        "blocks": [
+            {
+                "type": "1",
+                "x": 10,
+                "y": 11,
+                "h": 2,
+                "w": 2,
+                "core": {
+                    "corner": "left-top",
+                    "h": 1,
+                    "w": 2
+                }
+            },
+            {
+                "type": "4",
+                "x": 7,
+                "y": 7,
+                "h": 5,
+                "w": 1,
+                "core": {
+                    "corner": "left-top",
+                    "h": 1,
+                    "w": 1
+                }
+            },
+            {
+                "type": "6",
+                "x": 5,
+                "y": 5,
+                "h": 2,
+                "w": 2,
+                "core": {
+                    "corner": "left-bottom",
+                    "h": 1,
+                    "w": 2
+                }
+            },
+            {
+                "type": "2",
+                "x": 9,
+                "y": 4,
+                "h": 1,
+                "w": 1,
+                "core": {
+                    "corner": "right-bottom",
+                    "h": 1,
+                    "w": 1
+                },
+                "disposable": true
+            },
+            {
+                "type": "3",
+                "x": 12,
+                "y": 8,
+                "h": 2,
+                "w": 1,
+                "core": {
+                    "corner": "right-bottom",
+                    "h": 2,
+                    "w": 1
+                }
+            },
+            {
+                "type": "p",
+                "x": 7,
+                "y": 8,
+                "h": 3,
+                "w": 1
+            },
+            {
+                "type": "p",
+                "x": 3,
+                "y": 5,
+                "h": 4,
+                "w": 2
             }
         ]
     }
 ]
-
-
