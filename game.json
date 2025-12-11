@@ -426,10 +426,10 @@
                 "type": "3",
                 "x": 12,
                 "y": 8,
-                "h": 2,
+                "h": 3,
                 "w": 1,
                 "core": {
-                    "corner": "right-bottom",
+                    "corner": "right-top",
                     "h": 2,
                     "w": 1
                 }
@@ -451,5 +451,6 @@
         ]
     }
 ]
+
 
 
