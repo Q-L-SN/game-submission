@@ -407,20 +407,20 @@
                     "corner": "left-bottom",
                     "h": 1,
                     "w": 2
-                }
+                },
+                "disposable": true
             },
             {
                 "type": "2",
-                "x": 8,
+                "x": 7,
                 "y": 4,
                 "h": 1,
-                "w": 1,
+                "w": 2,
                 "core": {
                     "corner": "right-bottom",
                     "h": 1,
                     "w": 1
-                },
-                "disposable": true
+                }
             },
             {
                 "type": "3",
@@ -444,13 +444,14 @@
             {
                 "type": "p",
                 "x": 3,
-                "y": 5,
-                "h": 4,
+                "y": 3,
+                "h": 3,
                 "w": 2
             }
         ]
     }
 ]
+
 
 
 
