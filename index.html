@@ -346,8 +346,8 @@
             for (let i = 0; i < 64 * 2; i++) {
                 canvas.children[64 * (64 - 2) + i].style.backgroundColor = colors.bilateralBG;
             }
-            for (let i = 0; i <= level; i++) {
-                const width = Math.round((64 - levels.length) / (levels.length + 1));
+            for (let i = 0; i < level; i++) {
+                const width = Math.round((64 - levels.length) / levels.length);
                 for (let j = 0; j < width; j++) {
                     canvas.children[64 * (64 - 1) + i * width + i + j].style.backgroundColor = colors.bottomBar;
                 }
@@ -1286,6 +1286,7 @@
     </script>
 </body>
 </html>
+
 
 
 
